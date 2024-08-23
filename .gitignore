@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Specifies intentionally untracked files to ignore when using Git
 # http://git-scm.com/docs/gitignore
 
@@ -68,6 +69,8 @@ testem.log
 # System files
 .DS_Store
 Thumbs.db
+=======
+>>>>>>> 563a407809e87912c3579f617c7ce728255b1ce0
 # Logs
 logs
 *.log
@@ -197,4 +200,8 @@ dist
 .yarn/unplugged
 .yarn/build-state.yml
 .yarn/install-state.gz
+<<<<<<< HEAD
 .pnp.*
+=======
+.pnp.*
+>>>>>>> 563a407809e87912c3579f617c7ce728255b1ce0
