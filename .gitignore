@@ -45,7 +45,9 @@ yarn-error.log
 *.sublime-workspace
 
 # Visual Studio Code
-.vscode/*
+/.vscode/*
+.vscode/
+
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
@@ -54,7 +56,8 @@ yarn-error.log
 
 
 # Miscellaneous
-/.angular
+.angular/
+/.angular/*
 /.angular/cache
 .sass-cache/
 /.nx
