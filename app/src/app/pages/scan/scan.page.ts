@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PhotoService } from '../../services/photo.service';
 
 @Component({
   selector: 'app-scan',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScanPage implements OnInit {
 
-  constructor() { }
+  constructor(public photoService: PhotoService) { }
+  
 
   ngOnInit() {
+    
+  }
+  addPhotoToGallery() {
+    this.photoService.addNewToGallery();
   }
 
 }
