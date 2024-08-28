@@ -1,5 +1,6 @@
 #container {
   text-align: center;
+  
 
   position: absolute;
   left: 0;
@@ -12,7 +13,9 @@
   font-size: 20px;
   line-height: 26px;
 }
-
+.full-container{
+  --background: #f5f5dc;
+}
 #container p {
   font-size: 16px;
   line-height: 22px;
@@ -24,4 +27,21 @@
 
 #container a {
   text-decoration: none;
+}
+.list-md{
+  background: none;
+}
+
+.login-input{
+  margin: 25px 60px;
+  border: 2px solid #a4a3a3;
+  border-radius: 20px;
+}
+.login-input::placeholder{
+  justify-content: center;
+}
+.login-btn{
+  margin: 35px 60px;
+  border: 2px solid #a4a3a3;
+  border-radius: 20px;
 }
