@@ -1,3 +1,7 @@
+ion-content{
+    --background: #f5f5dc;
+}
+
 .center{
     display: flex;
     align-items: center;
@@ -10,11 +14,15 @@ ion-img{
 }
 
 ion-input{
+    --background: #ffffff;
+    --border-radius: 40px;
     text-align: center;
     border: 1px solid rgb(77, 77, 77);
     border-radius: 40px;
     margin-bottom: 20px;
     width: 70%;
+    --placeholder-color: #a4a3a3;
+    --color:#a4a3a3;
 }
 
 ion-button{
@@ -22,3 +30,4 @@ ion-button{
     width: 70%;
     margin-top: 20px;
 }
+
