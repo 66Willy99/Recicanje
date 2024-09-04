@@ -1,8 +1,19 @@
-ion-img[slot='fixed'] {
-    top: 85%;
-    right: 40%;
-  }
-  div{
+.nobg-btn{
+  margin: 20px 0 0 20px;
+  --background: rgba(0, 0, 0, 0);
+}
+
+.app-home-btn, div{
     display: flex;
-    justify-content: space-around;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
   }
+  #cam-btn{
+    width: 7rem;
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    bottom: 5%;
+    transform: translate(-50%, 0); 
+  }
+  

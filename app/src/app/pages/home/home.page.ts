@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { homeBtn } from 'src/app/models/homeBtn.model';
+import { NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-home',
@@ -27,9 +28,22 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private navCtrl: NavController) { }
 
   ngOnInit() {
+  }
+
+  navToShop(){
+    this.navCtrl.navigateForward('/shop');
+  }
+  navToInfo(){
+    this.navCtrl.navigateForward('/info');
+  }
+  navToScan(){
+    this.navCtrl.navigateForward('/scan');
+  }
+  navToProfile(){
+    this.navCtrl.navigateForward('/user-profile')
   }
   
 

@@ -1,24 +1,21 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>home</ion-title>
-  </ion-toolbar>
+<ion-header [translucent]="false">
+  <ion-button (click)="navToProfile()" class="nobg-btn" fill="solid">
+    <ion-avatar>
+      <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    </ion-avatar>
+  </ion-button>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-  <ion-avatar>
-    <img
-      alt="Silhouette of a person's head"
-      src="https://ionicframework.com/docs/img/demos/avatar.svg"
-    />
-  </ion-avatar>
-  <ion-img
-    src="../../../assets/icon/Recicanje-cam.png"
-    style="width: 5rem"
-    slot=""
-  >
-  </ion-img>
-  <div>
+
+  <div class="app-home-btn">
     <app-home-btn *ngFor="let homeBtn of homeBtns" [homeBtn]="homeBtn">
     </app-home-btn>
   </div>
+  <ion-button (click)="navToScan()" class="nobg-btn" id="cam-btn" slot="fixed" >
+    <ion-img 
+    src="../../../assets/icon/RecicanjeCam.png">
+  </ion-img>
+  </ion-button>
+  
 </ion-content>

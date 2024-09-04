@@ -1,0 +1,13 @@
+<ion-card>
+  <ion-img [src]="itemShop?.imageUrl" alt="{{ itemShop?.name }}"></ion-img>
+  <ion-card-header>
+    <ion-card-title>{{ itemShop?.name }}</ion-card-title>
+  </ion-card-header>
+  <ion-card-content>
+    <p>{{ itemShop?.name }}</p>
+    <ion-text color="medium">
+      <small>{{itemShop?.price}}</small>
+    </ion-text>
+    <ion-button expand="full" color="primary">Canjear</ion-button>
+  </ion-card-content>
+</ion-card>
