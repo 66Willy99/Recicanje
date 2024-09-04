@@ -6,8 +6,19 @@
 
 <ion-content [fullscreen]="true" class="ion-padding">
   <ion-avatar>
-    <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+    <img
+      alt="Silhouette of a person's head"
+      src="https://ionicframework.com/docs/img/demos/avatar.svg"
+    />
   </ion-avatar>
-  <ion-img src="../../../assets/icon/Recicanje-cam.png" style="width: 5rem;" slot="">
+  <ion-img
+    src="../../../assets/icon/Recicanje-cam.png"
+    style="width: 5rem"
+    slot=""
+  >
   </ion-img>
+  <div>
+    <app-home-btn *ngFor="let homeBtn of homeBtns" [homeBtn]="homeBtn">
+    </app-home-btn>
+  </div>
 </ion-content>
