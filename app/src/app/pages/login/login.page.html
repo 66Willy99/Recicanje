@@ -5,15 +5,15 @@
         </div>
       <!-- Input Email -->
       <div class="center">
-        <ion-input placeholder="EMAIL" type="email"></ion-input>
+        <ion-input [(ngModel)]="email" placeholder="EMAIL" type="email"></ion-input>
       </div>
       <!-- Input Contraseña -->
       <div class="center">
-        <ion-input placeholder="CONTRASEÑA" type="password"></ion-input>
+        <ion-input [(ngModel)]="pass" placeholder="CONTRASEÑA" type="password"></ion-input>
       </div>
       <!-- Boton Login -->
       <div class="center">
-        <ion-button>
+        <ion-button (click)="VaLogin()">
           INICIAR SESION
         </ion-button>
       </div>

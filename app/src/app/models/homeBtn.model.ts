@@ -2,7 +2,8 @@ export interface homeBtn {
     id?: string,
     title: string,
     name: string,
-    action: string,
+    action: () => void,
     imageUrl?: string,
-    status: 'Enable' | 'Disabled'
+    status: 'Enable' | 'Disabled',
+    class?: string
 }

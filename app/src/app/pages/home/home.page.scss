@@ -1,10 +1,23 @@
+ion-content{
+  --background: #f5f5dc
+}
+
 .nobg-btn{
   margin: 20px 0 0 20px;
   --background: rgba(0, 0, 0, 0);
   --box-shadow: none;
 }
 
-.app-home-btn, div{
+ion-chip{
+  padding-right: 80%;
+}
+
+ion-label{
+  padding-left: 10%;
+  color: #07AB07;
+}
+
+.app-home-btn, ion-button{
     display: flex;
     flex-wrap: wrap;
     justify-content: space-evenly;
@@ -17,4 +30,16 @@
     bottom: 5%;
     transform: translate(-50%, 0); 
   }
+
+.shop-btn{
+  --background: #07AB07;
+  height: 100px;
+  width: 100px;
+}
+
+.info-btn{
+  --background: #07AB07;
+  height: 100px;
+  width: 100px;
+}
   
