@@ -4,7 +4,7 @@
         <ion-avatar>
           <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
         </ion-avatar>
-      <ion-label>Usuario</ion-label>
+      <ion-label class="LabelAvatar">Usuario</ion-label>
     </ion-chip>
   </ion-button>
 </ion-header>
@@ -13,7 +13,7 @@
 
   <div class="app-home-btn">
     <ion-button *ngFor="let homeBtn of homeBtns" [ngClass]="homeBtn.class" (click)="homeBtn.action()" class="nobg-btn">
-    </ion-button>
+    <ion-img [src]="homeBtn.imageUrl" [alt]="homeBtn.title" class="custom_icon"></ion-img>  </ion-button>
   </div>
   <ion-button (click)="navToScan()" class="nobg-btn" id="cam-btn" slot="fixed" >
     <ion-img 

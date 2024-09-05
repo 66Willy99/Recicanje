@@ -17,22 +17,12 @@ export class LoginPage implements OnInit {
   ngOnInit() {
   }
 
-  async SesionCorrecta(mensaje: string) {
+  async MensajeLogin(mensaje: string, color: string) {
     const toast = await this.toastController.create({
       message: mensaje,
       duration: 2000,  
       position: 'top', 
-      color: 'success'    
-    });
-    toast.present();
-  }
-
-  async SesionInorrecta(mensaje: string) {
-    const toast = await this.toastController.create({
-      message: mensaje,
-      duration: 2000,  
-      position: 'top', 
-      color: 'danger'    
+      color: color    
     });
     toast.present();
   }
@@ -41,10 +31,10 @@ export class LoginPage implements OnInit {
 
     if (this.email == "admin" && this.pass == "admin"){
         this.navCtrl.navigateForward('/home');
-        this.SesionCorrecta('Inicio de sesion correcto')
+        this.MensajeLogin('Inicio de sesion correcto','success')
     }
     else{
-      this.SesionInorrecta('Inicio de sesion incorrecto')
+      this.MensajeLogin('Inicio de sesion incorrecto','danger')
     }
   }
 

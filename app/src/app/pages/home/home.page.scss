@@ -12,9 +12,14 @@ ion-chip{
   padding-right: 80%;
 }
 
-ion-label{
+.LabelAvatar{
   padding-left: 10%;
   color: #07AB07;
+}
+
+.LabelIcons{
+  display: block;  // Esto pone el texto en bloque para que cada uno esté en su propia línea
+  margin-bottom: 10px;  // Añadir un espacio entre líneas si es necesario
 }
 
 .app-home-btn, ion-button{
@@ -41,5 +46,10 @@ ion-label{
   --background: #07AB07;
   height: 100px;
   width: 100px;
+}
+
+.custom_icon{
+  width: 200px;   
+  height: 100px;
 }
   

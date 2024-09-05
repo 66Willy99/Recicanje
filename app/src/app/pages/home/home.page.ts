@@ -15,7 +15,7 @@ export class HomePage implements OnInit {
       title: 'Shop',
       name: 'Tienda',
       action: () => this.goShop(),
-      imageUrl: '1JPvHyMNpgG7m4h0mEqcs6h0oX3gSAzEe',
+      imageUrl: '../../../assets/icon/Tienda.png',
       status: 'Enable',
       class: 'shop-btn',
     },
@@ -24,7 +24,7 @@ export class HomePage implements OnInit {
       title: 'Info',
       name: 'Informacion',
       action: () => this.goInfo(),
-      imageUrl: '1L3wcF_ANDHOmhG9hkIx89JN40wftRO1a',
+      imageUrl: '../../../assets/icon/Info.png',
       status: 'Enable',
       class: 'info-btn',
     }
