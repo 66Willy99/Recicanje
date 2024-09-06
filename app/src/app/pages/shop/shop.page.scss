@@ -3,3 +3,26 @@
     flex-wrap: wrap;
     justify-content: space-around;
 }
+
+ion-content{
+    --background: #f5f5dc;
+}
+
+.Logo{
+    display: flex;
+    justify-content: center;
+    padding-left: 25px;
+}
+
+.Money{
+    display: flex;
+    justify-content: flex-start;
+    padding-left: 30px;
+    width: 130px;
+}
+
+div > h1 {
+    padding-left: 8px;
+    padding-bottom: 8px;
+    color: #004400;
+}
