@@ -1,24 +1,22 @@
 <ion-header [translucent]="false" >
   <ion-button (click)="navToProfile()" class="nobg-btn" fill="solid">
-    <ion-chip mode="ios">
-        <ion-avatar>
-          <img alt="Silhouette of a person's head" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        <ion-avatar >
+          <img alt="User" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
         </ion-avatar>
-      <ion-label class="LabelAvatar">Usuario</ion-label>
-    </ion-chip>
+        <ion-label class="LabelAvatar">Usuario</ion-label>    
   </ion-button>
 </ion-header>
 
 <ion-content [fullscreen]="true" class="ion-padding">
-
   <div class="app-home-btn">
-    <ion-button *ngFor="let homeBtn of homeBtns" [ngClass]="homeBtn.class" (click)="homeBtn.action()" class="nobg-btn">
-    <ion-img [src]="homeBtn.imageUrl" [alt]="homeBtn.title" class="custom_icon"></ion-img>  </ion-button>
+    <app-home-btn 
+    *ngFor="let homeBtn of homeBtns" [homeBtn]="homeBtn">
+
+    </app-home-btn>
   </div>
   <ion-button (click)="navToScan()" class="nobg-btn" id="cam-btn" slot="fixed" >
     <ion-img 
     src="../../../assets/icon/RecicanjeCam.png">
   </ion-img>
   </ion-button>
-  
 </ion-content>
