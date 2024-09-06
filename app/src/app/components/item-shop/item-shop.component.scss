@@ -4,3 +4,28 @@ ion-card{
     align-items: center;
     justify-content: center;
 }
+.comp-img-item-shop{
+    border-radius: 0.5rem;
+    height: 4rem;
+    width: 5rem;
+}
+.comp-name-item-shop{
+    color: #07AB07;
+    font-size: 0.7rem;
+}
+ion-card-content{
+    display: grid;
+    position: relative;
+    justify-items: center;
+    padding: 1rem 0.5rem;
+    gap: 0.35rem;
+}
+ion-button{
+    --background: #ffffff00 ;
+    --background-activated: ;
+    --background-focused: ;
+    --background-hover: ;
+    --background-activated-opacity: ;
+    --background-focused-opacity: ;
+    --background-hover-opacity: ;
+}

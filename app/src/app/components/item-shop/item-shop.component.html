@@ -1,11 +1,9 @@
 <ion-card>
-  <ion-img [src]="itemShop?.imageUrl" alt="{{ itemShop?.name }}"></ion-img>
-  <ion-card-header>
-    <h3>{{ itemShop?.name }}</h3>
-  </ion-card-header>
+  <ion-button>
   <ion-card-content>
-    <ion-text color="medium">
+  <img [src]="itemShop?.imageUrl" alt="{{ itemShop?.name }}" class="comp-img-item-shop">  
+    <h3 class="comp-name-item-shop">{{ itemShop?.name?.toUpperCase() }}</h3>
       <small>${{itemShop?.price}}</small>
-    </ion-text>
   </ion-card-content>
+</ion-button>
 </ion-card>
