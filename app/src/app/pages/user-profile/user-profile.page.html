@@ -1,13 +1,26 @@
-<ion-header [translucent]="true">
-  <ion-toolbar>
-    <ion-title>user-profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content [fullscreen]="true">
-  <ion-header collapse="condense">
-    <ion-toolbar>
-      <ion-title size="large">user-profile</ion-title>
-    </ion-toolbar>
-  </ion-header>
+
+  <div class="center">
+    <ion-img  src="../../../assets/icon/Recicanje_User.png" alt="UsuarioLogo"></ion-img>
+  </div>
+
+  <div class="Fondo">
+    <div class="center">
+      <ion-input [(ngModel)]="user" placeholder="NOMBRE"></ion-input>
+    </div>
+  </div>  
+
+  <div class="center">
+    <ion-button class="Actualizar" (click)="ActName()">
+      ACTUALIZAR
+    </ion-button>
+  </div>
 </ion-content>
+
+<ion-footer>
+  <div class="center">
+    <ion-button class="Sesion" (click)="Cierre()">
+      CERRAR SESION
+    </ion-button>
+  </div>
+</ion-footer>

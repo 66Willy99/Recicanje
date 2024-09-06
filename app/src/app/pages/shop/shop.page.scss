@@ -23,6 +23,9 @@ ion-content{
 
 div > h1 {
     padding-left: 8px;
-    padding-bottom: 8px;
+    padding-bottom: 9px;
     color: #004400;
+    --ion-font-family: "Roboto", sans-serif;
+    font-weight: 700;
+    font-style: normal;
 }
