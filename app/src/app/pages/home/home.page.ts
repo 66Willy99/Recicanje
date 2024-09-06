@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { homeBtn } from 'src/app/models/homeBtn.model';
 import { NavController } from '@ionic/angular';
+import { PhotoService } from 'src/app/services/photo.service';
+
+
 
 @Component({
   selector: 'app-home',
@@ -30,7 +33,7 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor(private navCtrl: NavController) { }
+  constructor(private navCtrl: NavController, private PhotoSrv: PhotoService) { }
 
   ngOnInit() {
   }
@@ -42,11 +45,10 @@ export class HomePage implements OnInit {
     this.navCtrl.navigateForward('/app-info');
   }
   navToScan(){
-    this.navCtrl.navigateForward('/scan');
+    this.PhotoSrv.takePhoto();
+    //this.navCtrl.navigateForward('/scan');
   }
   navToProfile(){
     this.navCtrl.navigateForward('/user-profile')
   }
-  
-
 }
