@@ -10,9 +10,13 @@
       <ion-title size="large">shop</ion-title>
     </ion-toolbar>
   </ion-header>
-  <div class="app-item-shop">
-    <app-item-shop 
-    *ngFor="let itemShop of itemsShop" [itemShop]="itemShop">
-    </app-item-shop>
-  </div>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col *ngFor="let itemShop of itemsShop" size="6" size-md="6">
+          <app-item-shop 
+            [itemShop]="itemShop">
+          </app-item-shop>
+        </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
