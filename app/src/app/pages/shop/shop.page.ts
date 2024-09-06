@@ -53,9 +53,15 @@ export class ShopPage implements OnInit {
     }
   ]
 
+
+  money = 9999
+
   constructor() { }
 
   ngOnInit() {
   }
 
+  Comprar(price: number){
+    this.money = (this.money - price);
+  }
 }
