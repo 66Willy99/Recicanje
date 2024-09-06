@@ -1,6 +1,6 @@
 <ion-header [translucent]="false" >
   <ion-button (click)="navToProfile()" class="nobg-btn" fill="solid">
-        <ion-avatar >
+        <ion-avatar>
           <img alt="User" src="https://ionicframework.com/docs/img/demos/avatar.svg" />
         </ion-avatar>
         <ion-label class="LabelAvatar">Usuario</ion-label>    
@@ -11,7 +11,6 @@
   <div class="app-home-btn">
     <app-home-btn 
     *ngFor="let homeBtn of homeBtns" [homeBtn]="homeBtn">
-
     </app-home-btn>
   </div>
   <ion-button (click)="navToScan()" class="nobg-btn" id="cam-btn" slot="fixed" >
