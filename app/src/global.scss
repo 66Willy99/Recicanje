@@ -50,7 +50,9 @@ ion-button{
     --background-focused-opacity: ;
     --background-hover-opacity: ;
 }
-
+.header-md{
+    box-shadow: none;
+}
 html,*{
     --ion-font-family: "Roboto", sans-serif;
     font-weight: 700;

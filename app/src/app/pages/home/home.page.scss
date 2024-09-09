@@ -6,7 +6,7 @@ ion-content{
   margin: 20px 0 0 20px;
   --background: rgba(0, 0, 0, 0);
   --box-shadow: none;
-  width: 10rem;
+  width: 12rem;
 }
 
 .LabelAvatar{
@@ -24,27 +24,14 @@ ion-content{
     flex-wrap: wrap;
     justify-content: space-evenly;
   }
-  #cam-btn{
-    width: 7rem;
-    margin: auto;
-    position: absolute;
-    left: 50%;
-    bottom: 5%;
-    transform: translate(-50%, 0); 
-  }
-
-.shop-btn{
-  --background: #07AB07;
-  height: 100px;
-  width: 100px;
+#cam-btn{
+  width: 7rem;
+  margin: auto;
+  position: absolute;
+  left: 50%;
+  bottom: 5%;
+  transform: translate(-50%, 0); 
 }
-
-.info-btn{
-  --background: #07AB07;
-  height: 100px;
-  width: 100px;
-}
-
 .custom_icon{
   width: 100px;   
   height: 100px;
