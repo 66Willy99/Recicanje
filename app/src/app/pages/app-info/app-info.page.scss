@@ -1,0 +1,65 @@
+.container {
+    text-align:left;
+  }
+  
+  .image {
+    width: 10%;
+  }
+
+  .cuadro1 {
+    background-color: hsl(123, 99%, 35%); /* Color de fondo del cuadro */
+    border-radius: 18px;     
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-left: 200px;
+    padding-left: 10px;
+    margin-bottom: 50px;
+
+ }
+
+ .desc {
+    color: #013b18;
+    text-align: left;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    margin-bottom: 1px;
+ }
+
+  .sabias-que {
+    color: #1e8043;
+    font-size: 30px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    border-bottom: 3px solid #38683f;
+    display: inline-block; 
+    line-height: 22px;
+  }
+  
+  .detalle {
+    font-size: 21px;
+    color: #03b447;
+    text-align: left;
+    margin-top: 1px;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+  }
+  
+  .cuadro {
+    background-color: hsl(47, 65%, 78%); /* Color de fondo del cuadro */
+    padding: 10px;            
+    border-radius: 50px;       
+    margin: 1px;
+  }
+
+  .msj {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: large;
+    text-align: center;
+    color: #15a34b;
+    padding-top: 35px;
+  }
+
+  .nmr {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 35px;
+    text-align: center;
+    color: #1d743e;
+    margin-top: 0px;
+  }
+  
