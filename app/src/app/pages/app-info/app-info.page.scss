@@ -1,18 +1,21 @@
 .container {
     text-align:left;
+    display: flex;
+    text-align: left;
+    flex-direction: column;
+    height: 100vh;
+    justify-content: space-around;
   }
   
   .image {
-    width: 10%;
+    width: 6rem;
+    height: 6rem;
   }
 
   .cuadro1 {
     background-color: hsl(123, 99%, 35%); /* Color de fondo del cuadro */
     border-radius: 18px;     
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-left: 200px;
-    padding-left: 10px;
-    margin-bottom: 50px;
 
  }
 
@@ -20,7 +23,7 @@
     color: #013b18;
     text-align: left;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    margin-bottom: 1px;
+    margin: 0.7rem;
  }
 
   .sabias-que {
@@ -61,5 +64,11 @@
     text-align: center;
     color: #1d743e;
     margin-top: 0px;
+  }
+  .app-info-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
   }
   
