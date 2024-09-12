@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
+import { AuthService } from 'src/app/services/auth-user.service';
+import { User } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-user-profile',
@@ -11,7 +13,7 @@ export class UserProfilePage implements OnInit {
 
   user: string = "";
 
-  constructor(private navCtrl: NavController, private toastController: ToastController) { }
+  constructor(private navCtrl: NavController, private toastController: ToastController, private AuthService: AuthService) { }
 
   ngOnInit() {
   }
@@ -35,9 +37,23 @@ export class UserProfilePage implements OnInit {
       this.MensajeLogin('Maximo de 15 Caracteres','danger');
     }
     else{
-      this.MensajeLogin('Nombre actualizado correctamente','success');
-      this.user = this.user;
-    }
+      // Obtener el usuario actual desde AuthService para actualizarlo
+      const currentUser = this.AuthService.getCurrentUser(); // Asumiendo que tienes una forma de obtener el usuario actual
+
+      // Actualizar solo el nombre del usuario si currentUser existe
+      if (currentUser) {
+        const updatedUser: User = { ...currentUser, name: this.user };
+        this.AuthService.updateUser(updatedUser);
+        // console.log(updatedUser)
+        // console.log(this.AuthService.users)
+        // ESTO FUNCIONA PERO TIENES QUE CERRAR SESION Y VOLVER A INGRESAR
+        this.MensajeLogin('Nombre actualizado correctamente', 'success');
+        this.user = ""; // Reiniciar la variable user después de la actualización
+        this.navCtrl.navigateForward('/login');
+      } else {
+        this.MensajeLogin('No se encontró el usuario actual', 'danger');
+      }
+  }
 
   }
 

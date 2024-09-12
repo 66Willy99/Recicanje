@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { homeBtn } from 'src/app/models/homeBtn.model';
 import { NavController } from '@ionic/angular';
 import { PhotoService } from 'src/app/services/photo.service';
+import { AuthService } from 'src/app/services/auth-user.service';
+import { User } from '../../models/user.model';
 
 
 
@@ -11,12 +13,13 @@ import { PhotoService } from 'src/app/services/photo.service';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
+  currentUser: User | null = null;
 
   homeBtns: homeBtn[] = [
     {
       id: '1',
       title: 'Shop',
-      name: 'Tienda',
+      name: 'Tienda', 
       action: () => this.goShop(),
       imageUrl: '../../../assets/icon/Tienda.png',
       status: 'Enable',
@@ -33,9 +36,11 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor(private navCtrl: NavController, private PhotoSrv: PhotoService) { }
+  constructor(private navCtrl: NavController, private PhotoSrv: PhotoService, private AuthService: AuthService) { }
 
   ngOnInit() {
+    this.currentUser = this.AuthService.getCurrentUser();
+    // console.log(this.currentUser)
   }
 
   goShop(){

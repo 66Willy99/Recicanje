@@ -4,20 +4,41 @@ import { User } from '../models/user.model';
   providedIn: 'root'
 })
 export class AuthService {
-  private users: User[] = [];
+  users: User[] = 
+  [{
+    uid: '1',
+    name: 'Juan Perez',
+    email: 'juan.perez@example.com',
+    password: '1234'
+  },
+  {
+    uid: '2',
+    name: 'Maria Gomez',
+    email: 'maria.gomez@example.com',
+    password: '1234'
+  },
+  {
+    uid: '3',
+    name: 'admin',
+    email: 'admin',
+    password: 'admin'
+  }
+];
   private currentUser: User | null = null;
 
   constructor() { }
 
   register(user: User): boolean {
     // Verificar si el usuario existe
-    const userExists = this.users.some(u => u.email === user.email);
-    if(userExists) {
-      return false; //Usuario ya existe
+    const userExists = this.users.find(u => u.email === user.email);
+    if (userExists) {
+      return false; // Usuario ya existe
     }
+    
+    // Crear un nuevo UID para el usuario
+    user.uid = (this.users.length + 1).toString(); // Asignar nuevo UID
+    this.users.push(user); // Agregar nuevo usuario
 
-    // Agrega un nuevo usuario
-    this.users.push(user);
     return true;
   }
 

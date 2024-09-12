@@ -1,3 +1,5 @@
+import { User } from './../../models/user.model';
+import { AuthService } from './../../services/auth-user.service';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
@@ -12,7 +14,7 @@ export class LoginPage implements OnInit {
   email: string = '';
   pass: string = '';
 
-  constructor(private navCtrl: NavController, private toastController: ToastController) { }
+  constructor(private navCtrl: NavController, private toastController: ToastController, private AuthService: AuthService) { }
 
   ngOnInit() {
   }
@@ -28,14 +30,31 @@ export class LoginPage implements OnInit {
   }
 
   VaLogin() {
+    const isLogged = this.AuthService.login(this.email, this.pass);
 
-    if (this.email == "admin" && this.pass == "admin"){
+    if (isLogged) {
+      this.MensajeLogin('Inicio de sesion correcto', 'success');
+      setTimeout(() => {
         this.navCtrl.navigateForward('/home');
-        this.MensajeLogin('Inicio de sesion correcto','success')
-    }
-    else{
-      this.MensajeLogin('Inicio de sesion incorrecto','danger')
+      }, 1500);
+      console.log(this.AuthService.users)
+    } else {
+      this.MensajeLogin('Inicio de sesion incorrecto', 'danger');
     }
   }
 
+  VaRegister() {
+    const newUser: User = {
+      name: '',
+      email: this.email,
+      password: this.pass
+    };
+    const isRegistered = this.AuthService.register(newUser); // Llamar al método de instancia
+    if (isRegistered) {
+      this.MensajeLogin('Registro exitoso', 'success');
+      // console.log(this.AuthService.users)
+    } else {
+      this.MensajeLogin('El usuario ya existe', 'danger');
+    }
+  }
 }
