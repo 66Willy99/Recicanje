@@ -3,5 +3,5 @@ export interface itemShop {
     name: string,
     stock?: number,
     imageUrl?: string,
-    price: number
+    price: number,
 }

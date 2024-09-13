@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { itemShop } from 'src/app/models/itemShop.model';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-shop',
@@ -14,7 +15,7 @@ export class ShopPage implements OnInit {
       name: 'cafe',
       stock: 5,
       imageUrl: 'https://tofuu.getjusto.com/orioneat-local/resized2/PnS4KYYj75HL5co8A-1200-1200.webp',
-      price: 200
+      price: 200,
     },
     {
       id: '2',
@@ -53,15 +54,17 @@ export class ShopPage implements OnInit {
     }
   ]
 
+  money: number = 9999;
 
-  money = 9999
-
-  constructor() { }
+  constructor(private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
 
   Comprar(precio: number){
     console.log(precio);
+    this.money = this.money - precio;
+    console.log(this.money);
+    this.cdr.detectChanges();
   }
 }
