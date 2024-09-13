@@ -51,7 +51,8 @@ export class HomePage implements OnInit {
   }
   navToScan(){
     this.PhotoSrv.takePhoto();
-    //this.navCtrl.navigateForward('/scan');
+    
+    this.navCtrl.navigateForward('/app-info');
   }
   navToProfile(){
     this.navCtrl.navigateForward('/user-profile')
