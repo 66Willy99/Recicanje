@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { authGuard } from './guards/auth.guard'; // Import the guard for control the access to the pages
 
 const routes: Routes = [
   {
@@ -13,11 +14,13 @@ const routes: Routes = [
   },
   {
     path: 'shop',
-    loadChildren: () => import('./pages/shop/shop.module').then( m => m.ShopPageModule)
+    loadChildren: () => import('./pages/shop/shop.module').then( m => m.ShopPageModule),
+    // canActivate: [authGuard]
   },
   {
     path: 'scan',
-    loadChildren: () => import('./pages/scan/scan.module').then( m => m.ScanPageModule)
+    loadChildren: () => import('./pages/scan/scan.module').then( m => m.ScanPageModule),
+    // canActivate: [authGuard]
   },
   {
     path: 'login',
@@ -29,16 +32,26 @@ const routes: Routes = [
   },
   {
     path: 'user-profile',
-    loadChildren: () => import('./pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule)
+    loadChildren: () => import('./pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule),
+    // canActivate: [authGuard]
   },
   {
     path: 'app-info',
-    loadChildren: () => import('./pages/app-info/app-info.module').then( m => m.AppInfoPageModule)
+    loadChildren: () => import('./pages/app-info/app-info.module').then( m => m.AppInfoPageModule),
+    // canActivate: [authGuard]
   },
   {
     path: 'item-shop',
-    loadChildren: () => import('./pages/item-shop/item-shop.module').then( m => m.ItemShopPageModule)
+    loadChildren: () => import('./pages/item-shop/item-shop.module').then( m => m.ItemShopPageModule),
+    // canActivate: [authGuard]
   },
+  {
+    path: 'not-found',
+    loadChildren: () => import('./pages/not-found/not-found.module').then( m => m.NotFoundPageModule)
+  },
+  {
+    path: '**' , redirectTo: 'not-found'
+  }
 
 ];
 

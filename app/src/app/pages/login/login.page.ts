@@ -32,15 +32,15 @@ export class LoginPage implements OnInit {
   VaLogin() {
     const isLogged = this.AuthService.login(this.email, this.pass);
 
-    if (isLogged) {
+    isLogged.then(() => {
       this.MensajeLogin('Inicio de sesion correcto', 'success');
       setTimeout(() => {
         this.navCtrl.navigateForward('/home');
       }, 1500);
-      console.log(this.AuthService.users)
-    } else {
+    } )
+    .catch(() => {
       this.MensajeLogin('Inicio de sesion incorrecto', 'danger');
-    }
+    })
   }
 
   VaRegister() {
@@ -50,11 +50,12 @@ export class LoginPage implements OnInit {
       password: this.pass
     };
     const isRegistered = this.AuthService.register(newUser); // Llamar al método de instancia
-    if (isRegistered) {
+    isRegistered.then((result) => {
       this.MensajeLogin('Registro exitoso', 'success');
       // console.log(this.AuthService.users)
-    } else {
+    })
+    .catch((error) => {
       this.MensajeLogin('El usuario ya existe', 'danger');
-    }
+    })
   }
 }

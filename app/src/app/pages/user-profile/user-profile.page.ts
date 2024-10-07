@@ -41,18 +41,18 @@ export class UserProfilePage implements OnInit {
       const currentUser = this.AuthService.getCurrentUser(); // Asumiendo que tienes una forma de obtener el usuario actual
 
       // Actualizar solo el nombre del usuario si currentUser existe
-      if (currentUser) {
-        const updatedUser: User = { ...currentUser, name: this.user };
-        this.AuthService.updateUser(updatedUser);
-        // console.log(updatedUser)
-        // console.log(this.AuthService.users)
-        // ESTO FUNCIONA PERO TIENES QUE CERRAR SESION Y VOLVER A INGRESAR
-        this.MensajeLogin('Nombre actualizado correctamente', 'success');
-        this.user = ""; // Reiniciar la variable user después de la actualización
-        this.navCtrl.navigateForward('/login');
-      } else {
-        this.MensajeLogin('No se encontró el usuario actual', 'danger');
-      }
+      // if (currentUser) {
+      //   const updatedUser: User = { ...currentUser, name: this.user };
+      //   this.AuthService.updateUser(updatedUser);
+      //   // console.log(updatedUser)
+      //   // console.log(this.AuthService.users)
+      //   // ESTO FUNCIONA PERO TIENES QUE CERRAR SESION Y VOLVER A INGRESAR
+      //   this.MensajeLogin('Nombre actualizado correctamente', 'success');
+      //   this.user = ""; // Reiniciar la variable user después de la actualización
+      //   this.navCtrl.navigateForward('/login');
+      // } else {
+      //   this.MensajeLogin('No se encontró el usuario actual', 'danger');
+      // }
   }
 
   }

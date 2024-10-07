@@ -39,8 +39,6 @@ export class HomePage implements OnInit {
   constructor(private navCtrl: NavController, private PhotoSrv: PhotoService, private AuthService: AuthService) { }
 
   ngOnInit() {
-    this.currentUser = this.AuthService.getCurrentUser();
-    // console.log(this.currentUser)
   }
 
   goShop(){
