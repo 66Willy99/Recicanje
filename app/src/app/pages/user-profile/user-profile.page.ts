@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth-user.service';
 import { User } from 'src/app/models/user.model';
+import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
   selector: 'app-user-profile',
@@ -13,7 +14,7 @@ export class UserProfilePage implements OnInit {
 
   user: string = "";
 
-  constructor(private navCtrl: NavController, private toastController: ToastController, private AuthService: AuthService) { }
+  constructor(private navCtrl: NavController, private toastController: ToastController, private AuthService: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -39,7 +40,7 @@ export class UserProfilePage implements OnInit {
     else{
       // Obtener el usuario actual desde AuthService para actualizarlo
       const currentUser = this.AuthService.getCurrentUser(); // Asumiendo que tienes una forma de obtener el usuario actual
-
+      this.cdr.detectChanges();
       // Actualizar solo el nombre del usuario si currentUser existe
       // if (currentUser) {
       //   const updatedUser: User = { ...currentUser, name: this.user };
