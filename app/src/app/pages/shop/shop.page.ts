@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { itemShop } from 'src/app/models/itemShop.model';
 import { ChangeDetectorRef } from '@angular/core';
+import { AlertController } from '@ionic/angular';  // Importar AlertController
 
 @Component({
   selector: 'app-shop',
@@ -9,7 +10,7 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class ShopPage implements OnInit {
 
-  itemsShop: itemShop[]=[
+  itemsShop: itemShop[] = [
     {
       id: '1',
       name: 'cafe',
@@ -52,19 +53,49 @@ export class ShopPage implements OnInit {
       imageUrl: 'https://dailyfresh.cl/cdn/shop/files/hallullajamonqueso.jpg?v=1700499925&width=1445',
       price: 600
     }
-  ]
+  ];
 
   money: number = 9999;
 
-  constructor(private cdr: ChangeDetectorRef) { }
+  constructor(
+    private cdr: ChangeDetectorRef,
+    private alertController: AlertController  // Inyectar AlertController
+  ) {}
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  async confirmarCompra(precio: number) {
+    const alert = await this.alertController.create({
+      header: 'Confirmación de compra',
+      message: `¿Estás seguro de que deseas comprar este producto por ${precio} puntos?`,
+      buttons: [
+        {
+          text: 'Cancelar',
+          role: 'cancel',
+          handler: () => {
+            console.log('Compra cancelada.');
+          }
+        },
+        {
+          text: 'Comprar',
+          handler: () => {
+            this.Comprar(precio); 
+          }
+        }
+      ]
+    });
+    await alert.present();  
   }
 
-  Comprar(precio: number){
+  Comprar(precio: number) {
     console.log(precio);
-    this.money = this.money - precio;
-    console.log(this.money);
+    
+    if (this.money - precio >= 0) {
+      this.money = this.money - precio;
+      console.log(`Compra realizada. Puntos restantes: ${this.money}`);
+    } else {
+      console.log("No tienes suficientes puntos para canjear este producto.");
+    }
     this.cdr.detectChanges();
   }
 }
