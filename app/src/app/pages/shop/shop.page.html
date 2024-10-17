@@ -11,10 +11,11 @@
   <ion-grid>
     <ion-row class="ion-justify-content-center">
       <ion-col *ngFor="let itemShop of itemsShop" size="6" size-md="6">
-          <app-item-shop 
-            [itemShop]="itemShop" (click)="Comprar(itemShop.price)">
-          </app-item-shop>
-        </ion-col>
+        <app-item-shop 
+          [itemShop]="itemShop" 
+          (click)="confirmarCompra(itemShop.price)">
+        </app-item-shop>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
