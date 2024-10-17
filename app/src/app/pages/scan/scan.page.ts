@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ScanPage implements OnInit {
 
+  ResName = "";
+  ResType = "";
+
   constructor() { }
 
   ngOnInit() {

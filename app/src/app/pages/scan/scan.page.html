@@ -6,21 +6,30 @@
 
   <div class="Fondo">
     <div class="center">
-      <ion-input></ion-input>
+      <ion-label>TIPO DE RESIDUO</ion-label>
+        <ion-item>
+          <ion-select justify="space-between" placeholder="Tipo" interface="popover" class="ListTipo" mode="md">
+            <ion-select-option value="Plastico">Plastico</ion-select-option>
+            <ion-select-option value="Vidrio">Vidrio</ion-select-option>
+            <ion-select-option value="Papel">Papel</ion-select-option>
+          </ion-select>
+        </ion-item>
+      <ion-label>¿QUE RESIDUO ES?</ion-label>
+      <ion-input [(ngModel)]="ResName"></ion-input>
     </div>
   </div>  
 
   <div class="center">
     <ion-button>
-      ACTUALIZAR
+      GUARDAR
     </ion-button>
   </div>
 </ion-content>
 
 <ion-footer>
   <div class="center">
-    <ion-button>
-      CERRAR SESION
+    <ion-button class="Volver">
+      VOLVER
     </ion-button>
   </div>
 </ion-footer>
