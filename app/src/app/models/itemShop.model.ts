@@ -1,7 +1,7 @@
 export interface itemShop {
-    id?: string,
+    id: string,
     name: string,
-    stock?: number,
+    stock: number,
     imageUrl?: string,
     price: number,
 }

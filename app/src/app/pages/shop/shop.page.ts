@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { itemShop } from 'src/app/models/itemShop.model';
 import { ChangeDetectorRef } from '@angular/core';
 import { AlertController } from '@ionic/angular';  // Importar AlertController
+import * as QRCode from 'qrcode';
 
 @Component({
   selector: 'app-shop',
@@ -56,6 +57,7 @@ export class ShopPage implements OnInit {
   ];
 
   money: number = 9999;
+  qrCodeData: string = '';
 
   constructor(
     private cdr: ChangeDetectorRef,
@@ -64,7 +66,7 @@ export class ShopPage implements OnInit {
 
   ngOnInit() {}
 
-  async confirmarCompra(precio: number) {
+  async confirmarCompra(precio: number, productId: string) {
     const alert = await this.alertController.create({
       header: 'Confirmación de compra',
       message: `¿Estás seguro de que deseas comprar este producto por ${precio} puntos?`,
@@ -79,23 +81,51 @@ export class ShopPage implements OnInit {
         {
           text: 'Comprar',
           handler: () => {
-            this.Comprar(precio); 
+            this.Comprar(precio, productId); // se agrego el productId para saber que producto esta comprando el usuario
+            alert.dismiss();
           }
         }
       ]
     });
-    await alert.present();  
+    await alert.present();
   }
 
-  Comprar(precio: number) {
-    console.log(precio);
-    
-    if (this.money - precio >= 0) {
-      this.money = this.money - precio;
+  async Comprar(precio: number, productId: string) {
+    const item = this.itemsShop.find(item => item.id === productId);
+    if (item && this.money >= precio && item.stock > 0) {
+      this.money -= precio;
+      item.stock -= 1;
       console.log(`Compra realizada. Puntos restantes: ${this.money}`);
+      const date = new Date().toISOString();
+      const data = {
+        date: date,
+        id: productId,
+        unit: 1
+      };
+      const qrCodeUrl = await this.generateQRCode(JSON.stringify(data));
+      console.log('QR Code URL:', qrCodeUrl); // Verificación de la URL del código QR
+      const qrAlert = await this.alertController.create({
+        header: 'Código QR',
+        message: `${qrCodeUrl}`,
+        buttons: ['OK']
+      });
+      console.log('QR Alert Message:', qrAlert.message); // Verificación del contenido del mensaje
+      await qrAlert.present();
     } else {
-      console.log("No tienes suficientes puntos para canjear este producto.");
+      console.log("No tienes suficientes puntos para canjear este producto o el producto no existe.");
     }
-    this.cdr.detectChanges();
+  }
+
+  generateQRCode(data: string): Promise<string> {
+    return new Promise((resolve, reject) => {
+      QRCode.toDataURL(data, (err: Error | null, url: string | undefined) => {
+        if (err) {
+          console.error(err);
+          reject(err);
+        } else {
+          resolve(url || '');
+        }
+      });
+    });
   }
 }

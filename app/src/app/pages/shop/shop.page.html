@@ -13,8 +13,11 @@
       <ion-col *ngFor="let itemShop of itemsShop" size="6" size-md="6">
         <app-item-shop 
           [itemShop]="itemShop" 
-          (click)="confirmarCompra(itemShop.price)">
+          (click)="confirmarCompra(itemShop.price, itemShop.id)">
         </app-item-shop>
+        <!-- <div *ngIf="qrCodeData">
+          <img [src]="qrCodeData" alt="QR Code">
+        </div> -->
       </ion-col>
     </ion-row>
   </ion-grid>
