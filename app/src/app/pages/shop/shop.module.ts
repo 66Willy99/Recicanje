@@ -13,9 +13,11 @@ import { SharedModule } from "../../components/shared/shared.module";
   imports: [
     CommonModule,
     FormsModule,
-    IonicModule,
+    IonicModule.forRoot({
+      innerHTMLTemplatesEnabled: true
+    }),
     ShopPageRoutingModule,
-    SharedModule
+    SharedModule,
 ],
   declarations: [ShopPage]
 })

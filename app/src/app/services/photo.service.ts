@@ -12,13 +12,16 @@ export class PhotoService {
 
   constructor() { }
 
-  public async takePhoto(){
+  async takePhoto(): Promise<any> { 
 
       const image = await Camera.getPhoto({
         quality: 90,
         source: CameraSource.Camera,
         resultType: CameraResultType.Uri
       });
-  
+      
+      var imageUrl = image.webPath;
+      console.log(imageUrl);
+      return imageUrl;
   }
 }

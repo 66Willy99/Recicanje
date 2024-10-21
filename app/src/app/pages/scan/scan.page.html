@@ -1,26 +1,29 @@
 <ion-content [fullscreen]="true">
 
   <div class="center">
-    <ion-img  src="../../../assets/icon/Recicanje_User.png" alt="Foto"></ion-img>
+    <ion-img  [src]="selectedImage" alt=""></ion-img>
   </div>
-
   <div class="Fondo">
     <div class="center">
       <ion-label>TIPO DE RESIDUO</ion-label>
         <ion-item>
           <ion-select justify="space-between" placeholder="Tipo" interface="popover" class="ListTipo" mode="md">
-            <ion-select-option value="Plastico">Plastico</ion-select-option>
+            <!-- REEMPLAZAR ESTO POR UNA LISTA DE OPCIONES -->
+            <ion-select-option *ngFor="let Restype of ResTypes" [value]="Restype">{{ Restype }}</ion-select-option>
+            <!-- <ion-select-option value="Plastico">Plastico</ion-select-option>
             <ion-select-option value="Vidrio">Vidrio</ion-select-option>
-            <ion-select-option value="Papel">Papel</ion-select-option>
+            <ion-select-option value="Papel">Papel</ion-select-option> -->
           </ion-select>
         </ion-item>
       <ion-label>¿QUE RESIDUO ES?</ion-label>
       <ion-input [(ngModel)]="ResName"></ion-input>
     </div>
   </div>  
-
   <div class="center">
-    <ion-button>
+    <app-image-uploader (imageSelected)="onImageSelected($event)"></app-image-uploader>
+  </div>
+  <div class="center" >
+    <ion-button (click)="sendData()">
       GUARDAR
     </ion-button>
   </div>
@@ -28,7 +31,7 @@
 
 <ion-footer>
   <div class="center">
-    <ion-button class="Volver">
+    <ion-button class="Volver" (click)="goHome()">
       VOLVER
     </ion-button>
   </div>

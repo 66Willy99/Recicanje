@@ -75,9 +75,10 @@ export class AuthService {
   }
 
   // updateUser(user: User): void {
-  //   const index = this.users.findIndex(u => u.email === user.email);
-  //   if (index !== -1) {
-  //     this.users[index] = user;
+  //   this.afAuth.currentUser.then((currentUser) => {
+  //     currentUser.updateProfile({
+  //       displayName: user.name
+  //     });
   //   }
   // }
 

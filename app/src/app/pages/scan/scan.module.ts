@@ -7,13 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { ScanPageRoutingModule } from './scan-routing.module';
 
 import { ScanPage } from './scan.page';
+import { SharedModule } from 'src/app/components/shared/shared.module';
+import { share } from 'rxjs';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    ScanPageRoutingModule
+    ScanPageRoutingModule,
+    SharedModule
   ],
   declarations: [ScanPage]
 })
