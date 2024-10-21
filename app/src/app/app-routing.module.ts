@@ -16,12 +16,12 @@ const routes: Routes = [
   {
     path: 'shop',
     loadChildren: () => import('./pages/shop/shop.module').then( m => m.ShopPageModule),
-    // canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'scan',
     loadChildren: () => import('./pages/scan/scan.module').then( m => m.ScanPageModule),
-    // canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'login',
@@ -29,22 +29,23 @@ const routes: Routes = [
   },
   {
     path: 'detail',
-    loadChildren: () => import('./pages/detail/detail.module').then( m => m.DetailPageModule)
+    loadChildren: () => import('./pages/detail/detail.module').then( m => m.DetailPageModule),
+    canActivate: [authGuard]
   },
   {
     path: 'user-profile',
     loadChildren: () => import('./pages/user-profile/user-profile.module').then( m => m.UserProfilePageModule),
-    // canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'app-info',
     loadChildren: () => import('./pages/app-info/app-info.module').then( m => m.AppInfoPageModule),
-    // canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'item-shop',
     loadChildren: () => import('./pages/item-shop/item-shop.module').then( m => m.ItemShopPageModule),
-    // canActivate: [authGuard]
+    canActivate: [authGuard]
   },
   {
     path: 'not-found',

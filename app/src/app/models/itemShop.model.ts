@@ -1,5 +1,5 @@
 export interface itemShop {
-    id: string,
+    uid: string,
     name: string,
     stock: number,
     imageUrl?: string,

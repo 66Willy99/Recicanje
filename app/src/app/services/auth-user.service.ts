@@ -1,7 +1,9 @@
 import { Injectable } from '@angular/core';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
+import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { map } from 'rxjs/operators';
 @Injectable({
   providedIn: 'root'
 })
@@ -15,7 +17,7 @@ export class AuthService {
     return this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
       .then((result) => {
         console.log('Usuario creado satisfactoriamente', result);
-        this.router.navigate(['/login']);
+        this.router.navigate(['/home']);
       })
       .catch((error) => {
         console.log('Error al crear el usuario', error);
@@ -62,8 +64,10 @@ export class AuthService {
       });
   }
 
-  isLoggedIn(): boolean {
-    return this.afAuth.authState !== null;
+  isLoggedIn(): Observable<boolean> {
+    return this.afAuth.authState.pipe(
+      map(user => !!user)
+    );
   }
 
   getCurrentUser(): Promise<any> {

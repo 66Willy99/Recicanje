@@ -3,6 +3,8 @@ import { itemShop } from 'src/app/models/itemShop.model';
 import { ChangeDetectorRef } from '@angular/core';
 import { AlertController } from '@ionic/angular';  // Importar AlertController
 import * as QRCode from 'qrcode';
+import { AngularFireDatabase } from '@angular/fire/compat/database';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-shop',
@@ -10,45 +12,46 @@ import * as QRCode from 'qrcode';
   styleUrls: ['./shop.page.scss'],
 })
 export class ShopPage implements OnInit {
+  private dbPath = '/itemsShop'; //ruta de la base de datos de productos canjeables
 
   itemsShop: itemShop[] = [
     {
-      id: '1',
+      uid: '1',
       name: 'cafe',
       stock: 5,
       imageUrl: 'https://tofuu.getjusto.com/orioneat-local/resized2/PnS4KYYj75HL5co8A-1200-1200.webp',
       price: 200,
     },
     {
-      id: '2',
+      uid: '2',
       name: 'dona',
       stock: 5,
       imageUrl: 'https://buenprovecho.hn/wp-content/uploads/2019/06/iStock-624745020-1.jpg',
       price: 400
     },
     {
-      id: '3',
+      uid: '3',
       name: 'empanada',
       stock: 5,
       imageUrl: 'https://lanuevamendez.cl/wp-content/uploads/2021/06/IMG_0153.jpeg',
       price: 500
     },
     {
-      id: '4',
+      uid: '4',
       name: 'muffin',
       stock: 5,
       imageUrl: 'https://bakingwithbutter.com/wp-content/uploads/2022/08/6-blueberry-muffins-1-720x720.jpg',
       price: 300
     },
     {
-      id: '5',
+      uid: '5',
       name: 'medialuna',
       stock: 5,
       imageUrl: 'https://assets.elgourmet.com/wp-content/uploads/2011/09/shutterstock_1366373012-1024x683.jpg.webp',
       price: 500
     },
     {
-      id: '6',
+      uid: '6',
       name: 'hallula',
       stock: 5,
       imageUrl: 'https://dailyfresh.cl/cdn/shop/files/hallullajamonqueso.jpg?v=1700499925&width=1445',
@@ -61,10 +64,27 @@ export class ShopPage implements OnInit {
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private alertController: AlertController  // Inyectar AlertController
+    private alertController: AlertController,  // Inyectar AlertController
+    private db: AngularFireDatabase
   ) {}
 
+  
   ngOnInit() {}
+  
+  // Funcion de obtener productosd de la base de datos
+  // getProducts(): Observable<itemShop[]> {
+  //   return this.db.list(this.dbPath).snapshotChanges().pipe(
+  //     map(changes =>
+  //       changes.map(c => {
+  //         const productData = c.payload.val() as itemShop;
+  //         return {
+  //           ...productData,
+  //           id: c.payload.key ?? ''
+  //         };
+  //       })
+  //     )
+  //   );
+  // }
 
   async confirmarCompra(precio: number, productId: string) {
     const alert = await this.alertController.create({
@@ -91,7 +111,7 @@ export class ShopPage implements OnInit {
   }
 
   async Comprar(precio: number, productId: string) {
-    const item = this.itemsShop.find(item => item.id === productId);
+    const item = this.itemsShop.find(item => item.uid === productId);
     if (item && this.money >= precio && item.stock > 0) {
       this.money -= precio;
       item.stock -= 1;
