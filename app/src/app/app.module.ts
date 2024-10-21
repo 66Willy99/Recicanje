@@ -4,8 +4,7 @@ import { RouteReuseStrategy } from '@angular/router';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
-import {AngularFireDatabaseModule} from '@angular/fire/compat/database';
-
+// import {AngularFireDatabaseModule} from '@angular/fire/compat/database';
 
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
@@ -19,7 +18,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserModule, 
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    AngularFireDatabaseModule,
+    // AngularFireDatabaseModule,
     IonicModule.forRoot(), 
     AppRoutingModule],
   providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],

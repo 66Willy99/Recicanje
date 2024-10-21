@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { itemShop } from 'src/app/models/itemShop.model';
 import { ChangeDetectorRef } from '@angular/core';
 import { AlertController } from '@ionic/angular';  // Importar AlertController
-import * as QRCode from 'qrcode';
-import { AngularFireDatabase } from '@angular/fire/compat/database';
+import QRCode from 'qrcode';
+// import { AngularFireDatabase } from '@angular/fire/compat/database';
 import { map, Observable } from 'rxjs';
 
 @Component({
@@ -65,7 +65,7 @@ export class ShopPage implements OnInit {
   constructor(
     private cdr: ChangeDetectorRef,
     private alertController: AlertController,  // Inyectar AlertController
-    private db: AngularFireDatabase
+    // private db: AngularFireDatabase
   ) {}
 
   
