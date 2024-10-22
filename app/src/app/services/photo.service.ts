@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Component, Output, EventEmitter } from '@angular/core';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 import { defineCustomElements } from '@ionic/pwa-elements/loader';
@@ -9,19 +10,8 @@ defineCustomElements(window);
   providedIn: 'root'
 })
 export class PhotoService {
+  @Output() imageSelected = new EventEmitter<string>();
 
   constructor() { }
 
-  async takePhoto(): Promise<any> { 
-
-      const image = await Camera.getPhoto({
-        quality: 90,
-        source: CameraSource.Camera,
-        resultType: CameraResultType.Uri
-      });
-      
-      var imageUrl = image.webPath;
-      console.log(imageUrl);
-      return imageUrl;
-  }
 }

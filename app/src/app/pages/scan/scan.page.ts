@@ -3,6 +3,7 @@ import { NavController } from '@ionic/angular';
 import { PhotoService } from 'src/app/services/photo.service';
 import { Database, ref, set } from '@angular/fire/database';
 import { inject } from '@angular/core';
+import { ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-scan',
@@ -10,20 +11,30 @@ import { inject } from '@angular/core';
   styleUrls: ['./scan.page.scss'],
 })
 export class ScanPage implements OnInit {
-  @Output() imageSelected = new EventEmitter<string>();
   private db = inject(Database); 
 
   ResName = "";
   ResType = "";
-  ResTypes: string[] = ['Plastico', 'Vidrio', 'Papel'];
+  ResTypes: string[] = ['Plastico', 'Vidrio', 'Papel', 'Metal'];
   selectedImage: string | null = null; 
 
   constructor(
     private navCtrl: NavController,
-    private PhotoSrv: PhotoService
-  ) { }
+    private PhotoSrv: PhotoService,
+    private toastController: ToastController
+   ) { }
 
   ngOnInit() {
+  }
+
+  async Notificacion(mensaje: string, color: string) {
+    const toast = await this.toastController.create({
+      message: mensaje,
+      duration: 2000,  
+      position: 'top', 
+      color: color    
+    });
+    toast.present();
   }
 
   onImageSelected(imageBase64: string) {
@@ -45,26 +56,20 @@ export class ScanPage implements OnInit {
   
       set(dbRef, data)
         .then(() => {
+          this.Notificacion('Residuo guardado correctamente', 'success');
           console.log('Datos enviados a Firebase');
           this.ResName = '';
           this.ResType = '';
           this.selectedImage = null;
+          this.navCtrl.navigateForward('/home');
         })
         .catch(error => {
           console.error('Error al enviar los datos a Firebase:', error);
+          this.Notificacion('Error al guardar el residuo, intente nuevamente', 'danger');
         });
     } else {
       console.error('Por favor completa todos los campos antes de enviar.');
-    }
-  }
-
-  async takePicture() {
-    try {
-      const base64Image = await this.PhotoSrv.takePhoto();
-      this.imageSelected.emit(base64Image);
-      this.onImageSelected(base64Image);
-    } catch (error) {
-      console.error('Error taking picture:', error);
+      this.Notificacion('Por favor completa todos los campos antes de enviar', 'danger');
     }
   }
 

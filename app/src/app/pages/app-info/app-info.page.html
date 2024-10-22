@@ -1,27 +1,11 @@
-<ion-content class="ion-padding">
-  <div class="container">
-    <div class="app-info-container">
-    <img src="assets/plastic-bottle.jpg" alt="Botella de Plástico" class="image">
-    
-    <div class="cuadro1"> 
-      <p class="desc">TIPO: PLÁSTICO</p>
-      <p class="desc">PESO: 18GR</p>
-      <p class="desc">APROX.</p>
-    </div>
-  </div>
-    <div class="cuadro">
-    <h2 class="sabias-que">¿SABÍAS QUE...?</h2>
-    <p class="detalle">
-      CADA DÍA SE COMPRAN MÁS DE MIL MILLONES DE BOTELLAS DE PLÁSTICO. ESTE NÚMERO REFLEJA LA NECESIDAD URGENTE DE REDUCIR NUESTRO CONSUMO DE PLÁSTICO Y FOMENTAR PRÁCTICAS DE RECICLAJE.    
-    </p>
-    </div>
-    <p class="msj">RECICLANDO ESTE ARTÍCULO OBTENDRÁS:</p>
-    <p class="nmr">18 PUNTOS</p>
-  </div>
-  <ion-button class="Volver" (click)="goHome()">
-    VOLVER
-  </ion-button>
+<ion-content>
+  <ion-list>
+    <ion-item *ngFor="let residuo of residuos">
+      <ion-label>
+        <h2>{{ residuo.ResName }}</h2>  
+        <p>Descripción: {{ residuo.ResType }}</p>
+       <ion-img [src]="residuo.ImageUrl" alt="Imagen de residuo" *ngIf="residuo.ImageUrl" /> 
+      </ion-label>
+    </ion-item>
+  </ion-list>
 </ion-content>
-
-
-

@@ -1,11 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { itemShop } from 'src/app/models/itemShop.model';
 import { ChangeDetectorRef } from '@angular/core';
-import { AlertController, IonicSafeString } from '@ionic/angular';  // Importar AlertController
+import { AlertController } from '@ionic/angular';  // Importar AlertController
 import QRCode from 'qrcode';
 import { NavController } from '@ionic/angular';
-// import { AngularFireDatabase } from '@angular/fire/compat/database';
-import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-shop',
@@ -13,7 +11,6 @@ import { map, Observable } from 'rxjs';
   styleUrls: ['./shop.page.scss'],
 })
 export class ShopPage implements OnInit {
-  private dbPath = '/itemsShop'; //ruta de la base de datos de productos canjeables
 
   itemsShop: itemShop[] = [
     {
@@ -68,8 +65,6 @@ export class ShopPage implements OnInit {
     private cdr: ChangeDetectorRef,
     private alertController: AlertController,  // Inyectar AlertController
     private navCtrl: NavController,
-    private IonicSafeString: IonicSafeString,
-    // private db: AngularFireDatabase
   ) {}
 
   
@@ -130,7 +125,7 @@ export class ShopPage implements OnInit {
       console.log('QR Code URL:', qrCodeUrl); // Verificación de la URL del código QR
       const qrAlert = await this.alertController.create({
         header: 'Código QR',
-        message: new IonicSafeString (`<img src="${qrCodeUrl}" alt="photo" />`),
+        message: `<img src="${qrCodeUrl}" alt="photo" />`,
         buttons: ['OK']
       });
       console.log('QR Alert Message:', qrAlert.message); // Verificación del contenido del mensaje
