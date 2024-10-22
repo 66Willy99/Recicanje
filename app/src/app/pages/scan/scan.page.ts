@@ -1,8 +1,8 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { PhotoService } from 'src/app/services/photo.service';
-import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
-
+import { Database, ref, set } from '@angular/fire/database';
+import { inject } from '@angular/core';
 
 @Component({
   selector: 'app-scan',
@@ -11,11 +11,12 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 })
 export class ScanPage implements OnInit {
   @Output() imageSelected = new EventEmitter<string>();
+  private db = inject(Database); 
 
   ResName = "";
   ResType = "";
   ResTypes: string[] = ['Plastico', 'Vidrio', 'Papel'];
-  selectedImage: string | null = null; // Para manejar la imagen seleccionada
+  selectedImage: string | null = null; 
 
   constructor(
     private navCtrl: NavController,
@@ -25,27 +26,49 @@ export class ScanPage implements OnInit {
   ngOnInit() {
   }
 
-  sendData(){
-
-  }
-  // Método para manejar la selección de la imagen
   onImageSelected(imageBase64: string) {
     console.log(imageBase64);
-    this.selectedImage = imageBase64; // Guardamos la imagen seleccionada en base64
-    // this.reportForm.patchValue({ imageUrl: this.selectedImage }); // Actualizamos el campo imageUrl en el formulario
+    this.selectedImage = imageBase64; 
   }
 
-  // Método para tomar foto
+  sendData() {
+    console.log('Enviar datos:', this.ResName, this.ResType, this.selectedImage); 
+    
+    if (this.ResName && this.ResType && this.selectedImage) {
+      const data = {
+        ResName: this.ResName,
+        ResType: this.ResType,
+        ImageUrl: this.selectedImage
+      };
+  
+      const dbRef = ref(this.db, 'residuos/' + Date.now());
+  
+      set(dbRef, data)
+        .then(() => {
+          console.log('Datos enviados a Firebase');
+          this.ResName = '';
+          this.ResType = '';
+          this.selectedImage = null;
+        })
+        .catch(error => {
+          console.error('Error al enviar los datos a Firebase:', error);
+        });
+    } else {
+      console.error('Por favor completa todos los campos antes de enviar.');
+    }
+  }
+
   async takePicture() {
     try {
       const base64Image = await this.PhotoSrv.takePhoto();
       this.imageSelected.emit(base64Image);
+      this.onImageSelected(base64Image);
     } catch (error) {
       console.error('Error taking picture:', error);
     }
   }
-  
-  goHome(){
-    this.navCtrl.navigateForward('/home'); 
+
+  goHome() {
+    this.navCtrl.navigateForward('/home');
   }
 }

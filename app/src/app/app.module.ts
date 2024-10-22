@@ -4,24 +4,34 @@ import { RouteReuseStrategy } from '@angular/router';
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { environment } from '../environments/environment';
-// import {AngularFireDatabaseModule} from '@angular/fire/compat/database';
-
 import { IonicModule, IonicRouteStrategy } from '@ionic/angular';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
+import { initializeApp, provideFirebaseApp } from '@angular/fire/app';
+import { getAuth, provideAuth } from '@angular/fire/auth';
+import { getAnalytics, provideAnalytics, ScreenTrackingService, UserTrackingService } from '@angular/fire/analytics';
+import { getDatabase, provideDatabase } from '@angular/fire/database';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
   declarations: [AppComponent],
   imports: [
-    BrowserModule, 
+    FormsModule,
+    BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    // AngularFireDatabaseModule,
-    IonicModule.forRoot(), 
-    AppRoutingModule],
-  providers: [{ provide: RouteReuseStrategy, useClass: IonicRouteStrategy }],
+    IonicModule.forRoot(),
+    AppRoutingModule
+  ],
+  providers: [
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    provideFirebaseApp(() => initializeApp(environment.firebaseConfig)), // Inicializa Firebase aquí
+    provideAuth(() => getAuth()),
+    provideAnalytics(() => getAnalytics()),
+    provideDatabase(() => getDatabase()),
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

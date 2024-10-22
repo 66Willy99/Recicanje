@@ -7,13 +7,9 @@
     <div class="center">
       <ion-label>TIPO DE RESIDUO</ion-label>
         <ion-item>
-          <ion-select justify="space-between" placeholder="Tipo" interface="popover" class="ListTipo" mode="md">
-            <!-- REEMPLAZAR ESTO POR UNA LISTA DE OPCIONES -->
+          <ion-select justify="space-between" placeholder="Tipo" interface="popover" class="ListTipo" mode="md" [(ngModel)]="ResType">
             <ion-select-option *ngFor="let Restype of ResTypes" [value]="Restype">{{ Restype }}</ion-select-option>
-            <!-- <ion-select-option value="Plastico">Plastico</ion-select-option>
-            <ion-select-option value="Vidrio">Vidrio</ion-select-option>
-            <ion-select-option value="Papel">Papel</ion-select-option> -->
-          </ion-select>
+          </ion-select>          
         </ion-item>
       <ion-label>¿QUE RESIDUO ES?</ion-label>
       <ion-input [(ngModel)]="ResName"></ion-input>
