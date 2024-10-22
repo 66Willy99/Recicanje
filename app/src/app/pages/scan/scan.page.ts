@@ -29,9 +29,7 @@ export class ScanPage implements OnInit {
     this.fAuth.getCurrentUser()
     .then(user => {
       if (user === null) {
-        console.log('Debes estar logeado para escanear residuos', user);
-      } else {
-      console.log('Usuario actual:', user);
+        this.Notificacion('Debes estar logeado para escanear residuos', 'danger');
       }
     })
     .catch(error => {

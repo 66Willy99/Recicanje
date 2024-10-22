@@ -4,6 +4,8 @@ import { ResiduosService } from 'src/app/services/residuos.service';
 import { Database, ref, get, child } from '@angular/fire/database';
 import { inject } from '@angular/core';
 import { compileNgModule } from '@angular/compiler';
+import { AuthService } from 'src/app/services/auth-user.service';
+import { user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-app-info',
@@ -14,7 +16,7 @@ export class AppInfoPage implements OnInit {
   private db: Database = inject(Database);
   public residuos: any[] = [];
 
-  constructor(private navCtrl: NavController,private residuosService: ResiduosService) { }
+  constructor(private navCtrl: NavController,private residuosService: ResiduosService, private fAuth: AuthService) { }
 
   ngOnInit() {
     this.fetchResiduos();
@@ -26,8 +28,13 @@ export class AppInfoPage implements OnInit {
     get(residuosRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
-          this.residuos = Object.values(snapshot.val()); // Suponiendo que tus residuos están guardados como un objeto
+          let user = this.obtenerUser();
+          this.residuos = Object.values(snapshot.val()); 
+          const CompleteData = snapshot.val();
           console.log(this.residuos);
+          Object.keys(CompleteData).forEach((key) => {
+            console.log(CompleteData[key].UserId);
+          }); 
         } else {
           console.log('No hay datos disponibles');
         }
@@ -35,6 +42,15 @@ export class AppInfoPage implements OnInit {
       .catch((error) => {
         console.error('Error al obtener datos: ', error);
       });
+  }
+  obtenerUser(): any{
+    this.fAuth.getCurrentUser().then(user => {
+      console.log(user.uid);
+      return user.uid;
+    }).catch(error => {
+      console.error('Error al obtener el usuario actual:', error);
+      return null
+    });
   }
 
   goHome(){
