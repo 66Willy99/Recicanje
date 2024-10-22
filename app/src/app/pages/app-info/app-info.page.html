@@ -1,11 +1,21 @@
 <ion-content>
-  <ion-list>
-    <ion-item *ngFor="let residuo of residuos">
-      <ion-label>
-        <h2>{{ residuo.ResName }}</h2>  
-        <p>Descripción: {{ residuo.ResType }}</p>
-       <ion-img [src]="residuo.ImageUrl" alt="Imagen de residuo" *ngIf="residuo.ImageUrl" /> 
-      </ion-label>
-    </ion-item>
-  </ion-list>
+  <ion-grid fixed>
+    <ion-row class="r-header ion-justify-content-center">
+      <ion-col size="8">
+        <ion-img class="shop-logo" src="../../../assets/icon/Residuos.png" alt="Recicanje Tienda"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-content fixed *ngFor="let residuo of residuos" class="r-content">
+    <div style="padding: 1rem 1.5rem 0;">
+      <div class="c-card">
+        <h2 class="c-content">{{ residuo.ResName.toUpperCase() }}</h2>
+        <p class="c-content">TIPO: {{ residuo.ResType.toUpperCase() }}</p>
+        <ion-img class="c-content" [src]="residuo.ImageUrl" alt="Imagen de residuo" *ngIf="residuo.ImageUrl" />
+      </div>
+    </div>
+  </ion-content>
+   <ion-button slot="fixed" class="volver" (click)="goHome()">
+          VOLVER
+        </ion-button>
 </ion-content>
