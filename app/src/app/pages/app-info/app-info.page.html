@@ -6,8 +6,8 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-content fixed *ngFor="let residuo of residuos" class="r-content">
-    <div style="padding: 1rem 1.5rem 0;">
+  <ion-content fixed  class="r-content">
+    <div *ngFor="let residuo of residuos" style="padding: 1rem 1.5rem 0;">
       <div class="c-card">
         <h2 class="c-content">{{ residuo.ResName.toUpperCase() }}</h2>
         <p class="c-content">TIPO: {{ residuo.ResType.toUpperCase() }}</p>
@@ -15,7 +15,7 @@
       </div>
     </div>
   </ion-content>
-   <ion-button slot="fixed" class="volver" (click)="goHome()">
-          VOLVER
-        </ion-button>
+  <ion-button slot="fixed" class="volver" (click)="goHome()">
+    VOLVER
+  </ion-button>
 </ion-content>
