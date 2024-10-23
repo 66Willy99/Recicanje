@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { ResiduosService } from 'src/app/services/residuos.service';
 import { Database, ref, get, child } from '@angular/fire/database';
 import { inject } from '@angular/core';
 import { compileNgModule } from '@angular/compiler';
@@ -16,7 +15,7 @@ export class AppInfoPage implements OnInit {
   private db: Database = inject(Database);
   public residuos: any[] = [];
 
-  constructor(private navCtrl: NavController,private residuosService: ResiduosService, private fAuth: AuthService) { }
+  constructor(private navCtrl: NavController, private fAuth: AuthService) { }
 
   ngOnInit() {
     this.fetchResiduos();
