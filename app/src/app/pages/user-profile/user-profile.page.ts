@@ -12,9 +12,9 @@ import { ChangeDetectorRef } from '@angular/core';
 })
 export class UserProfilePage implements OnInit {
 
-  user: string = "";
+  userDisplayName: string = "";
 
-  constructor(private navCtrl: NavController, private toastController: ToastController, private AuthService: AuthService, private cdr: ChangeDetectorRef) { }
+  constructor(private navCtrl: NavController, private toastController: ToastController, private fAuth: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
   }
@@ -29,32 +29,23 @@ export class UserProfilePage implements OnInit {
     toast.present();
   }
 
-  // ActName(){
-  //   if(this.user.trim() == ""){
-  //     this.MensajeLogin('Debes ingresar un nombre para continuar','danger');
-  //   }
-  //   else if(this.user.length > 15){
-  //     this.MensajeLogin('Maximo de 15 Caracteres','danger');
-  //   }
-  //   else{
-  //     // Obtener el usuario actual desde AuthService para actualizarlo
-  //     const currentUser = this.AuthService.getCurrentUser(); // Asumiendo que tienes una forma de obtener el usuario actual
-  //     this.cdr.detectChanges();
-  //     // Actualizar solo el nombre del usuario si currentUser existe
-  //     if (currentUser) {
-  //       const updatedUser: User = { ...currentUser, name: this.user };
-  //       this.AuthService.updateUser(updatedUser);
-  //       console.log(updatedUser)
-  //       console.log(this.AuthService.users)
-  //       // ESTO FUNCIONA PERO TIENES QUE CERRAR SESION Y VOLVER A INGRESAR
-  //       this.MensajeLogin('Nombre actualizado correctamente', 'success');
-  //       this.user = ""; // Reiniciar la variable user después de la actualización
-  //       this.navCtrl.navigateForward('/login');
-  //     } else {
-  //       this.MensajeLogin('No se encontró el usuario actual', 'danger');
-  //     }
-  // }
-  // }
+  ActName(){
+    if(this.userDisplayName.trim() == ""){
+      this.MensajeLogin('Debes ingresar un nombre para continuar','danger');
+    }
+    else if(this.userDisplayName.length > 15){
+      this.MensajeLogin('Maximo de 15 Caracteres','danger');
+    }
+    else{
+      // Obtener el usuario actual desde AuthService para actualizarlo
+      const UserId = this.fAuth.getLocalStorageItem('uid')// Asumiendo que tienes una forma de obtener el usuario actual
+      this.cdr.detectChanges();
+      // Actualizar solo el nombre del usuario si currentUser existe
+      if (UserId) {
+        //Falta logica de actualizacion de nombre
+      }
+    }
+  }
 
   Cierre(){
     this.navCtrl.navigateForward('/login');

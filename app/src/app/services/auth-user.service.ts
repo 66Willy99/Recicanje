@@ -31,6 +31,7 @@ export class AuthService {
     .then((result) => {
       console.log('Sesion iniciada satisfactoriamente', result);
       this.setLocalStorageItem('uid',result.user?.uid);
+      this.setLocalStorageItem('displayName', result.user?.displayName);
       this.router.navigate(['/home']);
     })
     .catch((error) => {
@@ -72,6 +73,7 @@ export class AuthService {
   }
 
   getCurrentUser(): Promise<any> {
+    console.log(this.afAuth.currentUser);
     return this.afAuth.currentUser;
   }
 
@@ -86,12 +88,20 @@ export class AuthService {
     window.localStorage.removeItem(key);
   }
 
-  // updateUser(user: User): void {
-  //   this.afAuth.currentUser.then((currentUser) => {
-  //     currentUser.updateProfile({
-  //       displayName: user.name
-  //     });
-  //   }
-  // }
+  updateName(uid: string, displayName: string): Promise<any> {
+    return this.afAuth.currentUser
+      .then((user) => {
+        return user?.updateProfile({
+          displayName: displayName
+        });
+      })
+      .then(() => {
+        console.log('Nombre actualizado satisfactoriamente');
+      })
+      .catch((error) => {
+        console.log('Error al actualizar el nombre', error);
+        throw error;
+      });
+  }
 
 }

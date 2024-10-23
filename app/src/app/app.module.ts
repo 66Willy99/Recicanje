@@ -22,7 +22,7 @@ import { FormsModule } from '@angular/forms';
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireAuthModule,
-    IonicModule.forRoot(),
+    IonicModule.forRoot({innerHTMLTemplatesEnabled: true}),
     AppRoutingModule
   ],
   providers: [

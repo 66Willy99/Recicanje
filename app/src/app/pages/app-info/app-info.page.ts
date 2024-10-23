@@ -1,3 +1,4 @@
+import { User } from 'src/app/models/user.model';
 import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { Database, ref, get, child } from '@angular/fire/database';
@@ -5,6 +6,7 @@ import { inject } from '@angular/core';
 import { compileNgModule } from '@angular/compiler';
 import { AuthService } from 'src/app/services/auth-user.service';
 import { user } from '@angular/fire/auth';
+import { Residuo } from 'src/app/models/residuo.model';
 
 @Component({
   selector: 'app-app-info',
@@ -13,7 +15,7 @@ import { user } from '@angular/fire/auth';
 })
 export class AppInfoPage implements OnInit {
   private db: Database = inject(Database);
-  public residuos: any[] = [];
+  public residuos: Residuo[] = [];
 
   constructor(private navCtrl: NavController, private fAuth: AuthService) { }
 
@@ -27,13 +29,16 @@ export class AppInfoPage implements OnInit {
     get(residuosRef)
       .then((snapshot) => {
         if (snapshot.exists()) {
-          let user = this.obtenerUser();
-          this.residuos = Object.values(snapshot.val()); 
-          const CompleteData = snapshot.val();
-          console.log(this.residuos);
-          Object.keys(CompleteData).forEach((key) => {
-            console.log(CompleteData[key].UserId);
-          }); 
+          this.residuos = []; // se vacia la lista para cargarla con la base de datos segun uid del user
+          let b = Object.keys(snapshot.val()).map(key => snapshot.val()[key]); //lista completa de los residuos
+          //Filtro por uid del user, asi solo se carga lo que el usuario ha escaneado
+          for (let index = 0; index < b.length; index++) {
+            const element = b[index];
+           if (element.UserId == this.obtenerUser()) {
+              this.residuos.push(element);
+              console.log(this.residuos);
+            }
+          }         
         } else {
           console.log('No hay datos disponibles');
         }
@@ -43,13 +48,7 @@ export class AppInfoPage implements OnInit {
       });
   }
   obtenerUser(): any{
-    this.fAuth.getCurrentUser().then(user => {
-      console.log(user.uid);
-      return user.uid;
-    }).catch(error => {
-      console.error('Error al obtener el usuario actual:', error);
-      return null
-    });
+    return this.fAuth.getLocalStorageItem('uid');
   }
 
   goHome(){
