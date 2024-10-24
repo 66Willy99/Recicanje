@@ -3,8 +3,10 @@ ion-card{
     justify-items: center;
     align-items: center;
     justify-content: center;
-    border-radius: 2rem;
-    --background:#E4C99D ;
+    // border-radius: 2rem;
+    --background:#e4c99d00 ;
+    box-shadow: none;
+    -webkit-box-shadow: none;
 }
 .comp-img-item-shop{
     border-radius: 1rem;
@@ -26,15 +28,11 @@ ion-card-content{
     gap: 0.35rem;
 }
 ion-button{
-    --background: #ffffff00 ;
+    --background: #E4C99D ;
     --background-activated: ;
     --background-focused: ;
     --background-hover: ;
     --background-activated-opacity: ;
     --background-focused-opacity: ;
     --background-hover-opacity: ;
-}
-
-ion-card{
-    
 }
