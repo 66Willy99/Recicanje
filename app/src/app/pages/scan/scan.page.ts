@@ -16,7 +16,7 @@ export class ScanPage implements OnInit {
 
   ResName = "";
   ResType = "";
-  ResTypes: string[] = ['Plastico', 'Vidrio', 'Papel', 'Metal'];
+  ResTypes: string[] = ['Plastico', 'Papel & Carton', 'Metal', "Organico"];
   selectedImage: string | null = null; 
 
   constructor(
