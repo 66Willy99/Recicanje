@@ -88,12 +88,15 @@ export class AuthService {
     window.localStorage.removeItem(key);
   }
 
-  updateName(uid: string, displayName: string): Promise<any> {
+  updateName(displayName: string): Promise<any> {
     return this.afAuth.currentUser
       .then((user) => {
-        return user?.updateProfile({
+        let dName = user?.updateProfile({
           displayName: displayName
         });
+        this.setLocalStorageItem('displayName', displayName);
+        console.log(dName);
+        return dName;
       })
       .then(() => {
         console.log('Nombre actualizado satisfactoriamente');

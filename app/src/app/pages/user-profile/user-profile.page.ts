@@ -17,6 +17,7 @@ export class UserProfilePage implements OnInit {
   constructor(private navCtrl: NavController, private toastController: ToastController, private fAuth: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    this.cdr.detectChanges();
   }
 
   async MensajeLogin(mensaje: string, color: string) {
@@ -38,12 +39,11 @@ export class UserProfilePage implements OnInit {
     }
     else{
       // Obtener el usuario actual desde AuthService para actualizarlo
-      const UserId = this.fAuth.getLocalStorageItem('uid')// Asumiendo que tienes una forma de obtener el usuario actual
+      const UserId: string = this.fAuth.getLocalStorageItem('uid') as string; // Asumiendo que tienes una forma de obtener el usuario actual
       this.cdr.detectChanges();
-      // Actualizar solo el nombre del usuario si currentUser existe
-      if (UserId) {
-        //Falta logica de actualizacion de nombre
-      }
+      this.fAuth.updateName(this.userDisplayName)
+      this.navCtrl.navigateForward('/home');
+      this.cdr.detectChanges();
     }
   }
 

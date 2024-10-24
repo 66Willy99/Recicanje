@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { homeBtn } from 'src/app/models/homeBtn.model';
 import { NavController } from '@ionic/angular';
-import { PhotoService } from 'src/app/services/photo.service';
 import { AuthService } from 'src/app/services/auth-user.service';
-import { User } from '../../models/user.model';
+import { ChangeDetectorRef } from '@angular/core';
 
 
 
@@ -13,7 +12,7 @@ import { User } from '../../models/user.model';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  currentUser: User | null = null;
+  displayName = this.fAuth.getLocalStorageItem('displayName');
 
   homeBtns: homeBtn[] = [
     {
@@ -36,9 +35,11 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor(private navCtrl: NavController, private PhotoSrv: PhotoService, private AuthService: AuthService) { }
+  constructor(private navCtrl: NavController, private fAuth: AuthService, private cdr: ChangeDetectorRef) { }
 
   ngOnInit() {
+    console.log(this.displayName);
+    this.cdr.detectChanges();
   }
 
   goShop(){

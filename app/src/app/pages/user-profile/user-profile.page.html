@@ -6,12 +6,12 @@
 
   <div class="Fondo">
     <div class="center">
-      <ion-input [(ngModel)]="userDisplayName" placeholder="NOMBRE"></ion-input>
+      <ion-input [(ngModel)]="userDisplayName" placeholder="{{ userDisplayName }}"></ion-input>
     </div>
   </div>  
 
   <div class="center">
-    <ion-button class="Actualizar" > <!-- Falta implementar-->
+    <ion-button class="Actualizar" (click)="ActName()" > <!-- Falta implementar-->
       ACTUALIZAR
     </ion-button>
     <ion-button (click)="goHome()" > <!-- Falta implementar-->
