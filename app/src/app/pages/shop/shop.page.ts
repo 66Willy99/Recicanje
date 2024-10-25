@@ -125,7 +125,7 @@ export class ShopPage implements OnInit {
       console.log('QR Code URL:', qrCodeUrl); // Verificación de la URL del código QR
       const qrAlert = await this.alertController.create({
         header: 'Código QR',
-        message: `"${qrCodeUrl}"`,
+        message: `<img src="${qrCodeUrl}" alt="photo" />`,
         buttons: ['OK']
       });
       console.log('QR Alert Message:', qrAlert.message); // Verificación del contenido del mensaje
