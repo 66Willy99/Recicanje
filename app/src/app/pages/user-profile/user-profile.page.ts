@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NavController } from '@ionic/angular';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth-user.service';
-import { User } from 'src/app/models/user.model';
 import { ChangeDetectorRef } from '@angular/core';
 
 @Component({
@@ -48,6 +47,7 @@ export class UserProfilePage implements OnInit {
   }
 
   Cierre(){
+    this.fAuth.destoyLocalStorageItem('uid');
     this.navCtrl.navigateForward('/login');
   }
   goHome(){

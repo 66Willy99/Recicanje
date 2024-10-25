@@ -32,6 +32,7 @@ export class AuthService {
       console.log('Sesion iniciada satisfactoriamente', result);
       this.setLocalStorageItem('uid',result.user?.uid);
       this.setLocalStorageItem('displayName', result.user?.displayName);
+      console.log('displayName: ', result.user?.displayName);
       this.router.navigate(['/home']);
     })
     .catch((error) => {

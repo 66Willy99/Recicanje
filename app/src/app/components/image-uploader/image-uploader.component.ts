@@ -8,7 +8,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
   styleUrls: ['./image-uploader.component.scss'],
 })
 export class ImageUploaderComponent {
-  @Output() imageSelected = new EventEmitter<string>();  // Emite la imagen seleccionada
+  @Output() imageSelected = new EventEmitter<string>(); 
 
   constructor(private photoSrv: PhotoService) { }
   
@@ -23,7 +23,7 @@ export class ImageUploaderComponent {
       const base64Image = image.dataUrl;
 
       if (base64Image) {
-        this.imageSelected.emit(base64Image); // Emitimos la imagen base64
+        this.imageSelected.emit(base64Image); 
       } else {
         console.error('No se tomó ninguna foto');
       }

@@ -7,11 +7,12 @@ export const authGuard: CanActivateFn = (route, state) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
-  if(authService.isLoggedIn()) {
+  if(authService.getLocalStorageItem('uid')) {
     console.log("buscando guard");
-    console.log(authService.getCurrentUser());
+    console.log('Guard: ' + authService.getLocalStorageItem('uid'));
     return true;
   } else {
+    console.log('No se registra Guard');
     router.navigate(['/login']);
     return false;
   }

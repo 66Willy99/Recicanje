@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { itemShop } from 'src/app/models/itemShop.model';
 import { ChangeDetectorRef } from '@angular/core';
-import { AlertController } from '@ionic/angular';  // Importar AlertController
+import { AlertController } from '@ionic/angular';  
 import QRCode from 'qrcode';
 import { NavController } from '@ionic/angular';
 
@@ -125,7 +125,7 @@ export class ShopPage implements OnInit {
       console.log('QR Code URL:', qrCodeUrl); // Verificación de la URL del código QR
       const qrAlert = await this.alertController.create({
         header: 'Código QR',
-        message: `<img src="${qrCodeUrl}" alt="photo" />`,
+        message: `"${qrCodeUrl}"`,
         buttons: ['OK']
       });
       console.log('QR Alert Message:', qrAlert.message); // Verificación del contenido del mensaje
