@@ -52,6 +52,9 @@ export class LoginPage implements OnInit {
     const isRegistered = this.AuthService.register(newUser); // Llamar al método de instancia
     isRegistered.then((result) => {
       this.MensajeLogin('Registro exitoso', 'success');
+      setTimeout(() => {
+        this.navCtrl.navigateForward('/home');
+      }, 1500);
       // console.log(this.AuthService.users)
     })
     .catch((error) => {

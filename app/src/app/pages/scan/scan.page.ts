@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { PhotoService } from 'src/app/services/photo.service';
 import { Database, ref, set } from '@angular/fire/database';
 import { inject } from '@angular/core';
 import { ToastController } from '@ionic/angular';

@@ -69,21 +69,6 @@ export class ShopPage implements OnInit {
 
   
   ngOnInit() {}
-  
-  // Funcion de obtener productosd de la base de datos
-  // getProducts(): Observable<itemShop[]> {
-  //   return this.db.list(this.dbPath).snapshotChanges().pipe(
-  //     map(changes =>
-  //       changes.map(c => {
-  //         const productData = c.payload.val() as itemShop;
-  //         return {
-  //           ...productData,
-  //           id: c.payload.key ?? ''
-  //         };
-  //       })
-  //     )
-  //   );
-  // }
 
   async confirmarCompra(precio: number, productId: string) {
     const alert = await this.alertController.create({

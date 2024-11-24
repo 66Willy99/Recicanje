@@ -1,5 +1,4 @@
 import { Component, Output, EventEmitter } from '@angular/core';
-import { PhotoService } from 'src/app/services/photo.service';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 
 @Component({
@@ -10,7 +9,7 @@ import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 export class ImageUploaderComponent {
   @Output() imageSelected = new EventEmitter<string>(); 
 
-  constructor(private photoSrv: PhotoService) { }
+  constructor() { }
   
   async takePhoto() { 
     try{
