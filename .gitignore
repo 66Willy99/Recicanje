@@ -28,6 +28,7 @@ www/
 /tmp
 /out-tsc
 /bazel-out
+android/
 
 # Node
 /node_modules
@@ -46,7 +47,7 @@ yarn-error.log
 
 # Visual Studio Code
 /.vscode/*
-.vscode/
+app/.vscode/
 
 !.vscode/settings.json
 !.vscode/tasks.json
