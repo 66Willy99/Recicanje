@@ -68,7 +68,6 @@ export class ScanPage implements OnInit {
         //Guardar residuo en BD
         set(dbRef, data)
           .then(() => {
-            this.Notificacion('Residuo guardado correctamente', 'success');
             console.log('Datos enviados a Firebase');
             this.navCtrl.navigateForward('/home');
           })
@@ -104,6 +103,7 @@ export class ScanPage implements OnInit {
                 this.ResName = '';
                 this.ResType = '';
                 this.selectedImage = null;
+                this.Notificacion('Felicidades! ahora tienes ' + newPoints, 'success');
               })
               .catch((error) => {
                 console.error('Error al sumar los puntos: ', error);

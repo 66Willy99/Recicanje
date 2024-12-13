@@ -162,6 +162,12 @@ export class ShopPage implements OnInit {
       });
       await qrAlert.present();
     } else {
+      const qrAlert = await this.alertController.create({
+        header: 'Error',
+        message: `No tienes suficientes puntos para canjear este producto o el producto no está disponible.`,
+        buttons: ['OK']
+      });
+      await qrAlert.present();
       console.log("No tienes suficientes puntos para canjear este producto o el producto no está disponible.");
     }
   }
