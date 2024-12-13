@@ -1,8 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
+import { NavController, ToastController } from '@ionic/angular';
 import { Database, ref, set } from '@angular/fire/database';
-import { inject } from '@angular/core';
-import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth-user.service';
 
 @Component({

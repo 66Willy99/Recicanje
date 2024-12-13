@@ -3,6 +3,7 @@ import { homeBtn } from 'src/app/models/homeBtn.model';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth-user.service';
 import { ChangeDetectorRef } from '@angular/core';
+import { user } from '@angular/fire/auth';
 
 
 
@@ -12,7 +13,22 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  displayName = this.fAuth.getLocalStorageItem('displayName');
+
+  constructor(private navCtrl: NavController, private afAuth: AuthService, private cdr: ChangeDetectorRef) { }
+  
+  displayName = this.afAuth.getCurrentUser()
+    .then(user => {
+      if (user === null) {
+        this.navCtrl.navigateForward('/login');
+      }
+      else{
+        this.displayName = user.displayName;
+      }
+    })
+    .catch(error => {
+      console.error('Error al obtener el usuario actual:', error);
+    });
+  
 
   homeBtns: homeBtn[] = [
     {
@@ -35,11 +51,12 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor(private navCtrl: NavController, private fAuth: AuthService, private cdr: ChangeDetectorRef) { }
+  
 
   ngOnInit() {
-    console.log(this.displayName);
-    this.cdr.detectChanges();
+
+    
+    
   }
 
   goShop(){
