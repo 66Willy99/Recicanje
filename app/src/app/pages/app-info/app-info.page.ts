@@ -24,7 +24,7 @@ export class AppInfoPage implements OnInit {
   }
 
   fetchResiduos() {
-    const residuosRef = ref(this.db, 'residuos/'); // Cambia esta ruta a donde están tus residuos en la base de datos
+    const residuosRef = ref(this.db, 'residuos/'); 
 
     get(residuosRef)
       .then((snapshot) => {

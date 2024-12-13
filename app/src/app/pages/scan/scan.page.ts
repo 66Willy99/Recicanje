@@ -1,6 +1,6 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { NavController } from '@ionic/angular';
-import { Database, ref, set } from '@angular/fire/database';
+import { Database, ref, set, get, update } from '@angular/fire/database';
 import { inject } from '@angular/core';
 import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth-user.service';
@@ -65,7 +65,9 @@ export class ScanPage implements OnInit {
         };
     
         const dbRef = ref(this.db, 'residuos/' + Date.now());
-    
+        const userRef = ref(this.db, 'users/' + user.uid);
+        
+        //Guardar residuo en BD
         set(dbRef, data)
           .then(() => {
             this.Notificacion('Residuo guardado correctamente', 'success');
@@ -78,6 +80,41 @@ export class ScanPage implements OnInit {
           .catch(error => {
             console.error('Error al enviar los datos a Firebase:', error);
             this.Notificacion('Error al guardar el residuo, intente nuevamente', 'danger');
+          });
+
+          //Cargar puntos al usuario
+          get(userRef)
+          .then((snapshot) => {
+            if (snapshot.exists()) {
+              const userData = snapshot.val();
+              const currentPoints = userData.coins || 0;
+              let newPoints = 0;
+              //Puntaje por tipo de residuo
+              if(this.ResType == 'Plastico' || this.ResType == 'Papel & Carton'){
+                newPoints = currentPoints + 10;
+              }
+              else if(this.ResType == 'Metal'){
+                newPoints = currentPoints + 20;
+              }
+              else if(this.ResType == 'Organico'){
+                newPoints = currentPoints + 5;
+              } else {
+                newPoints = currentPoints;
+              }
+              //Update a la BD
+              update(userRef, {coins: newPoints })
+              .then(() => {
+                console.log('Puntos añadidos correctamente')
+              })
+              .catch((error) => {
+                console.error('Error al sumar los puntos: ', error);
+              });
+            } else {
+              console.log('No hay datos disponibles');
+            }
+          })
+          .catch((error) => {
+            console.error('Error al obtener datos: ', error);
           });
       } else {
         console.error('Por favor completa todos los campos antes de enviar.');
