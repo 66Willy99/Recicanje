@@ -1,9 +1,11 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { User } from '../models/user.model';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { map } from 'rxjs/operators';
+import { Database, ref, set } from '@angular/fire/database';
+import { NavController, ToastController } from '@ionic/angular';
 @Injectable({
   providedIn: 'root'
 })
@@ -12,14 +14,28 @@ export class AuthService {
     private afAuth : AngularFireAuth,
     private router: Router
   ) { }
+  private db = inject(Database);
 
   register(user: User): Promise<any> {
     return this.afAuth.createUserWithEmailAndPassword(user.email, user.password)
       .then((result) => {
-        console.log('Usuario creado satisfactoriamente', result);
-        this.router.navigate(['/home']);
+        console.log('Usuario creado satisfactoriamente', result);   //usuario se crea
+        const dbRef = ref(this.db, 'users/' + result.user?.uid);    //se crea el usuario en la bd
+        const data = {                                              //se crea el objeto con los datos del usuario
+          UserId: result.user?.uid,
+          coins: 0,
+          role: 'user',
+        };
+        set(dbRef, data)
+          .then(() => {
+            console.log('Datos enviados a Firebase');                //se envian los datos a la bd
+          })
+          .catch(error => {                                          //error al enviar los datos a la bd
+            console.error('Error al enviar los datos a Firebase:', error);
+          });
+        this.router.navigate(['/home']);                             //redirige a la pagina home
       })
-      .catch((error) => {
+      .catch((error) => {                                            //error al crear el usuario
         console.log('Error al crear el usuario', error);
         throw error;
       });
@@ -92,15 +108,20 @@ export class AuthService {
   updateName(displayName: string): Promise<any> {
     return this.afAuth.currentUser
       .then((user) => {
-        let dName = user?.updateProfile({
-          displayName: displayName
-        });
-        this.setLocalStorageItem('displayName', displayName);
-        console.log(dName);
-        return dName;
+        if (user) {
+          return user.updateProfile({ displayName: displayName }).then(() => {
+            return user.reload(); // Recargar el usuario para obtener datos actualizados
+          });
+        } else {
+          throw new Error('No hay un usuario autenticado.');
+        }
       })
       .then(() => {
-        console.log('Nombre actualizado satisfactoriamente');
+        return this.afAuth.currentUser; // Obtener al usuario actualizado
+      })
+      .then((updatedUser) => {
+        this.setLocalStorageItem('displayName', updatedUser?.displayName || '');
+        console.log('Nombre actualizado satisfactoriamente:', updatedUser?.displayName);
       })
       .catch((error) => {
         console.log('Error al actualizar el nombre', error);

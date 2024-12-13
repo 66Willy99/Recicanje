@@ -1,8 +1,6 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { Component, OnInit, Output, EventEmitter, inject } from '@angular/core';
+import { NavController, ToastController } from '@ionic/angular';
 import { Database, ref, set, get, update } from '@angular/fire/database';
-import { inject } from '@angular/core';
-import { ToastController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth-user.service';
 
 @Component({
@@ -72,9 +70,6 @@ export class ScanPage implements OnInit {
           .then(() => {
             this.Notificacion('Residuo guardado correctamente', 'success');
             console.log('Datos enviados a Firebase');
-            this.ResName = '';
-            this.ResType = '';
-            this.selectedImage = null;
             this.navCtrl.navigateForward('/home');
           })
           .catch(error => {
@@ -104,7 +99,11 @@ export class ScanPage implements OnInit {
               //Update a la BD
               update(userRef, {coins: newPoints })
               .then(() => {
+                console.log('Points: ', currentPoints, ' Coins: ', newPoints)
                 console.log('Puntos añadidos correctamente')
+                this.ResName = '';
+                this.ResType = '';
+                this.selectedImage = null;
               })
               .catch((error) => {
                 console.error('Error al sumar los puntos: ', error);

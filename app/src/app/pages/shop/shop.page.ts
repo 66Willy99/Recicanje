@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { itemShop } from 'src/app/models/itemShop.model';
-import { ChangeDetectorRef } from '@angular/core';
-import { AlertController } from '@ionic/angular';  
+import { AlertController, NavController } from '@ionic/angular';  
 import QRCode from 'qrcode';
-import { NavController } from '@ionic/angular';
+import { Database, ref, set, get, update } from '@angular/fire/database';
+import { AuthService } from 'src/app/services/auth-user.service';
+
 
 @Component({
   selector: 'app-shop',
@@ -11,7 +12,7 @@ import { NavController } from '@ionic/angular';
   styleUrls: ['./shop.page.scss'],
 })
 export class ShopPage implements OnInit {
-
+  private db = inject(Database); 
   itemsShop: itemShop[] = [
     {
       uid: '1',
@@ -57,18 +58,48 @@ export class ShopPage implements OnInit {
     }
   ];
 
-  money: number = 9999;
+  
+            
+            
+  money: number = 0;
   // qrCodeData: string = '';
   qrCodeData: string | null = null;
 
   constructor(
     private cdr: ChangeDetectorRef,
-    private alertController: AlertController,  // Inyectar AlertController
+    private alertController: AlertController, 
     private navCtrl: NavController,
+    private fAuth: AuthService,
   ) {}
 
   
-  ngOnInit() {}
+  ngOnInit() {
+
+    this.loadUserMoney(); // Cargar los puntos del usuario al iniciar la página
+
+  }
+
+  async loadUserMoney() {
+    try {
+      const user = await this.fAuth.getCurrentUser();
+      if (user) {
+        const userRef = ref(this.db, `users/${user.uid}`);
+        const snapshot = await get(userRef);
+
+        if (snapshot.exists()) {
+          const userData = snapshot.val();
+          this.money = userData.coins || 0; // Asigna los puntos a la variable `money`
+          console.log(`Puntos cargados: ${this.money}`);
+        } else {
+          console.error('No se encontraron datos para el usuario.');
+        }
+      } else {
+        console.error('Usuario no autenticado.');
+      }
+    } catch (error) {
+      console.error('Error al cargar los puntos del usuario:', error);
+    }
+  }
 
   async confirmarCompra(precio: number, productId: string) {
     const alert = await this.alertController.create({
@@ -97,9 +128,26 @@ export class ShopPage implements OnInit {
   async Comprar(precio: number, productId: string) {
     const item = this.itemsShop.find(item => item.uid === productId);
     if (item && this.money >= precio && item.stock > 0) {
+      const user = await this.fAuth.getCurrentUser();
+      if (!user) {
+        console.error('Usuario no autenticado.');
+        return;
+      }
+
+      // Deduce el precio de los puntos del usuario
       this.money -= precio;
       item.stock -= 1;
-      console.log(`Compra realizada. Puntos restantes: ${this.money}`);
+
+      // Actualizar puntos del usuario en la base de datos
+      const userRef = ref(this.db, `users/${user.uid}`);
+      try {
+        await update(userRef, { coins: this.money });
+        console.log(`Puntos actualizados: ${this.money}`);
+      } catch (error) {
+        console.error('Error al actualizar los puntos:', error);
+      }
+
+      // Generar código QR
       const date = new Date().toISOString();
       const data = {
         date: date,
@@ -107,16 +155,14 @@ export class ShopPage implements OnInit {
         unit: 1
       };
       const qrCodeUrl = await this.generateQRCode(JSON.stringify(data));
-      console.log('QR Code URL:', qrCodeUrl); // Verificación de la URL del código QR
       const qrAlert = await this.alertController.create({
         header: 'Código QR',
         message: `<img src="${qrCodeUrl}" alt="photo" />`,
         buttons: ['OK']
       });
-      console.log('QR Alert Message:', qrAlert.message); // Verificación del contenido del mensaje
       await qrAlert.present();
     } else {
-      console.log("No tienes suficientes puntos para canjear este producto o el producto no existe.");
+      console.log("No tienes suficientes puntos para canjear este producto o el producto no está disponible.");
     }
   }
 

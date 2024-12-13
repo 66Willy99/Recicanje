@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { homeBtn } from 'src/app/models/homeBtn.model';
 import { NavController } from '@ionic/angular';
 import { AuthService } from 'src/app/services/auth-user.service';
-import { ChangeDetectorRef } from '@angular/core';
+import { ChangeDetectorRef, NgZone } from '@angular/core';
+import { user } from '@angular/fire/auth';
 
 
 
@@ -12,7 +13,10 @@ import { ChangeDetectorRef } from '@angular/core';
   styleUrls: ['./home.page.scss'],
 })
 export class HomePage implements OnInit {
-  displayName = this.fAuth.getLocalStorageItem('displayName');
+
+  displayName: string = 'Usuario'; // Inicializar como cadena vacía
+
+  constructor(private navCtrl: NavController, private afAuth: AuthService, private cdr: ChangeDetectorRef, private ngZone: NgZone ) { }
 
   homeBtns: homeBtn[] = [
     {
@@ -35,11 +39,26 @@ export class HomePage implements OnInit {
     }
   ];
 
-  constructor(private navCtrl: NavController, private fAuth: AuthService, private cdr: ChangeDetectorRef) { }
+  
 
   ngOnInit() {
-    console.log(this.displayName);
-    this.cdr.detectChanges();
+    this.loadUserDisplayName(); // Cargar el nombre de usuario
+  }
+
+  async loadUserDisplayName() {
+    try {
+      const user = await this.afAuth.getCurrentUser();
+      if (user) {
+        await user.reload(); // Asegurarse de obtener datos actualizados
+        this.ngZone.run(() => {
+          this.displayName = user.displayName || 'Usuario';
+        });
+      } else {
+        this.navCtrl.navigateForward('/login');
+      }
+    } catch (error) {
+      console.error('Error al cargar el usuario:', error);
+    }
   }
 
   goShop(){
